@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lco. Corporation</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #181818;
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        @view-transition {
+            navigation: auto;
+        }
+
+        #navigation-bar {
+            background: linear-gradient(90deg, #2c2a2a 25%, transparent);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+        }
+
+        .other-section {
+            min-height: 100vh;
+            padding: 100px 5%;
+            background: #181818;
+            position: relative;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .other-section {
+                flex-direction: column;
+                padding: 100px 10%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navigation-bar">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+            <div class="flex items-center space-x-4 md:space-x-12">
+                <img src="img/company_logo.webp" alt="Sihatbot Logo" class="h-6 md:h-10 object-contain">
+                <div class="hidden lg:flex space-x-8 text-sm tracking-wide uppercase">
+                    <a href="/sihatbot.html" class="nav-link hover:text-gray-300 transition text-white">Home</a>
+                    <a href="/about-us.html" class="nav-link hover:text-gray-300 transition text-white">lco.
+                        Corporation</a>
+                    <a href="/contact-us.html"
+                        class="nav-link hover:text-gray-300 transition text-white font-bold">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="contact-section" class="other-section pb-1">
+        <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-7/12">
+                <div class="max-w-4xl">
+                    <h2
+                        class="text-4xl font-black uppercase mb-8 text-white bg-gray-600 px-3 py-1 md:px-4 md:py-2 rounded-full flex items-center shadow-lg">
+                        Contact Us</h2>
+
+                    <p class="text-xl text-gray-300 leading-relaxed mb-6 
+              first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+              first-letter:mr-2 first-letter:float-left first-letter:leading-[0.7] first-letter:font-serif">
+                        Have a question or need assistance with our services? Our dedicated team is just a message away
+                        and ready to provide the support you deserve. Contact us for any inquiries.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img src="img/instagram.svg" alt="Instagram" class="w-6 h-6 object-contain">
+                                <h3 class="font-bold text-xl">Instagram</h3>
+                            </div>
+                            <p class="text-gray-400">@lco.corporation</p>
+                        </div>
+
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img src="img/linkedin.svg" alt="LinkedIn" class="w-6 h-6 object-contain">
+                                <h3 class="font-bold text-xl">LinkedIn</h3>
+                            </div>
+                            <p class="text-gray-400">lco. Corporation</p>
+                        </div>
+
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img src="img/tik_tok.svg" alt="TikTok" class="w-6 h-6 object-contain">
+                                <h3 class="font-bold text-xl">TikTok</h3>
+                            </div>
+                            <p class="text-gray-400">@lco.corporation</p>
+                        </div>
+
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img src="img/google.svg" alt="Email" class="w-6 h-6 object-contain">
+                                <h3 class="font-bold text-xl">Google Mail</h3>
+                            </div>
+                            <p class="text-gray-400">corporate@lcocorp.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:w-5/12 w-full">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1  rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://jpnmelaka.moe.gov.my/images/attachstore/bahan_muat_naik/SEKTOR_PENGURUSAN_SEKOLAH/UPS/LAPORAN_KEJAYAAN/31_KYS.JPG"
+                            alt="Healthcare Innovation"
+                            class="w-full h-[425px] object-cover opacity-80 hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

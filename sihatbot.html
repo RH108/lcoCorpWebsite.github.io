@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lco. Corporation - Sihatbot™</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(90deg, #ffffff 0%, #561008 100%);
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        @view-transition {
+            navigation: auto;
+        }
+
+        #navigation-bar {
+            background: linear-gradient(90deg, #a11b0f 25%, transparent);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+        }
+
+        .scroll-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5% 0 10%;
+            position: relative;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .content-box {
+            max-width: 500px;
+            pointer-events: auto;
+            padding-top: 80px;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 60;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            #canvas-container {
+                opacity: 0.3;
+                z-index: 5;
+            }
+
+            #navigation-bar {
+                z-index: 100;
+            }
+
+            .scroll-section {
+                padding-left: 5%;
+                justify-content: center;
+                text-align: center;
+                z-index: 10;
+            }
+
+            .content-box {
+                max-width: 100%;
+            }
+
+            .flex-start-mobile {
+                justify-content: center;
+            }
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+            color: #561008;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+
+<body class="relative">
+    <nav id="navigation-bar">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+            <div class="flex items-center space-x-4 md:space-x-12">
+                <div class="bg-white px-3 py-1 md:px-4 md:py-2 rounded-full flex items-center shadow-lg">
+                    <img src="img/logo.png" alt="Sihatbot Logo" class="h-6 md:h-10 object-contain">
+                </div>
+                <div class="hidden lg:flex space-x-8 text-sm tracking-wide uppercase">
+                    <a href="/sihatbot.html"
+                        class="nav-link hover:text-gray-300 transition text-white font-bold">Home</a>
+                    <a href="/about-us.html" class="nav-link hover:text-gray-300 transition text-white">lco.
+                        Corporation</a>
+                    <a href="/contact-us.html" class="nav-link hover:text-gray-300 transition text-white">Contact Us</a>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <img src="img/company_logo.webp" alt="Company Logo" class="h-8 md:h-12 w-auto object-contain">
+            </div>
+        </div>
+    </nav>
+
+    <div id="canvas-container"></div>
+
+    <section class="scroll-section" id="section-0">
+        <div class="content-box">
+            <h1
+                class="text-[#561008] text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tight mb-4 border-b-8 border-red-800 inline-block leading-none">
+                Telemedicine <br> Made Simple
+            </h1>
+            <p class="text-black text-base md:text-xl mt-4 md:mt-8 leading-relaxed mb-6 md:mb-10"><span
+                    class="text-red-900 font-semibold">Stop guessing,</span> start
+                knowing. Your AI-powered first responder for instant pre-diagnosis and expert health advice.</p>
+
+            <div class="mb-8 md:mb-12">
+                <p class="text-xs uppercase font-bold tracking-[0.2em] text-gray-500 mb-4">As seen on</p>
+                <div class="flex items-center space-x-4 md:space-x-8 flex-start-mobile">
+                    <img src="img/buttons/sinarbestari.png" alt="Sinar Bestari" class="h-10 md:h-12">
+                    <div class="h-6 md:h-8 w-[1px] bg-red-900"></div>
+                    <img src="img/buttons/utusanmalaysia.webp" alt="Utusan Malaysia" class="h-10 md:h-12">
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 cursor-pointer group flex-start-mobile">
+                <div class="scroll-indicator">
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <span class="text-black uppercase font-bold tracking-widest text-sm md:text-base">Scroll to
+                    Rotate</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="scroll-section" id="section-1">
+        <div class="content-box">
+            <h2 class="text-black text-3xl md:text-4xl lg:text-6xl font-black uppercase leading-tight mb-4">
+                Trusted. <br> Seamless. Secure.
+            </h2>
+            <ul class="text-black text-base md:text-xl mt-4 list-none">
+                <li class="flex items-start flex-start-mobile">
+                    <span class="mr-2 text-red-500">•</span>
+                    <span>Highly Intuitive UI</span>
+                </li>
+                <li class="flex items-start flex-start-mobile">
+                    <span class="mr-2 text-red-500">•</span>
+                    <span>Encrypted Data Privacy</span>
+                </li>
+                <li class="flex items-start flex-start-mobile">
+                    <span class="mr-2 text-red-500">•</span>
+                    <span style="display: inline-flex; align-items: center; gap: 5px; vertical-align: middle;">
+                        Cross-Platform Support (
+                        <img src="img/apple.svg" alt="iOS" style="height: 1em; width: auto;">
+                        iOS /
+                        <img src="img/android.svg" alt="Android" style="height: 1em; width: auto;">
+                        Android)
+                    </span>
+                </li>
+                <li class="flex items-start flex-start-mobile">
+                    <span class="mr-2 text-red-500">•</span>
+                    <span>Real-time AI Diagnostics</span>
+                </li>
+            </ul>
+
+            <div class="mt-8">
+                <p class="text-xs uppercase font-bold tracking-[0.2em] text-gray-500 mb-4">Official Endorsements</p>
+                <div class="flex items-center space-x-4 md:space-x-6 flex-start-mobile">
+                    <img src="img/kpm_logo.png" alt="KPM Logo" class="h-10 md:h-16 w-auto object-contain">
+                    <div class="h-6 md:h-8 w-[1px] bg-red-900"></div>
+                    <img src="img/uitm_logo.png" alt="UiTM Jasin Logo" class="h-10 md:h-16 w-auto object-contain">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scroll-section" id="section-2">
+        <div class="content-box">
+            <h2 class="text-black text-3xl md:text-4xl lg:text-6xl font-black uppercase leading-tight mb-4">
+                Ready <br> When You Are
+            </h2>
+            <p class="text-black text-base md:text-xl mt-4">
+                Professional-grade health insights, available 24/7. Download now and keep your health in your pocket.
+                <br><br>
+                <span class="font-semibold text-red-900">Coming Soon! (Q3-Q4 2026)</span>
+            </p>
+            <div class="mt-8 flex space-x-4 flex-start-mobile pointer-events-auto">
+                <img src="img/buttons/playstore.svg" class="h-10 md:h-12 cursor-pointer" alt="Play Store">
+                <img src="img/buttons/appstore.svg" class="h-10 md:h-12 cursor-pointer" alt="App Store">
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

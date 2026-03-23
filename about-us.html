@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lco. Corporation</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #181818;
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        @view-transition {
+            navigation: auto;
+        }
+
+        .hero-parallax {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://jpnmelaka.moe.gov.my/images/attachstore/bahan_muat_naik/SEKTOR_PENGURUSAN_SEKOLAH/UPS/LAPORAN_KEJAYAAN/29_KYS.JPG');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .hero-parallax::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            z-index: 10;
+        }
+
+        .logo-side {
+            font-size: 8rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .slogan-side {
+            text-align: right;
+        }
+
+        .slogan-text {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .slogan-highlight {
+            display: block;
+            font-size: 5.5rem;
+        }
+
+        #navigation-bar {
+            background: linear-gradient(90deg, #2c2a2a 25%, transparent);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+        }
+
+        .other-section {
+            min-height: 100vh;
+            padding: 100px 5%;
+            background: #181818;
+            position: relative;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .logo-side {
+                font-size: 5rem;
+            }
+
+            .slogan-side {
+                text-align: center;
+            }
+
+            .slogan-text {
+                font-size: 2.5rem;
+            }
+
+            .slogan-highlight {
+                font-size: 3.5rem;
+            }
+
+            .hero-parallax {
+                background-attachment: scroll;
+            }
+
+            .other-section {
+                flex-direction: column;
+                padding: 100px 10%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navigation-bar">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+            <div class="flex items-center space-x-4 md:space-x-12">
+                <img src="img/company_logo.webp" alt="Sihatbot Logo" class="h-6 md:h-10 object-contain">
+                <div class="hidden lg:flex space-x-8 text-sm tracking-wide uppercase">
+                    <a href="/sihatbot.html" class="nav-link hover:text-gray-300 transition text-white">Home</a>
+                    <a href="/about-us.html" class="nav-link hover:text-gray-300 transition text-white font-bold">lco.
+                        Corporation</a>
+                    <a href="/contact-us.html" class="nav-link hover:text-gray-300 transition text-white">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-parallax">
+        <div class="hero-content">
+            <div class="logo-side">
+                <img src="img/company_logo.webp" alt="lco. Logo" class="h-16 md:h-24 lg:h-32 w-auto object-contain"
+                    onerror="this.style.display='none'">
+            </div>
+            <div class="slogan-side">
+                <h1 class="slogan-text">
+                    Innovation
+                    <span class="slogan-highlight">Always.</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission-section" class="other-section pb-1">
+        <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-7/12">
+                <div class="max-w-4xl">
+                    <h2
+                        class="text-4xl font-black uppercase mb-8 text-white bg-gray-600 px-3 py-1 md:px-4 md:py-2 rounded-full flex items-center shadow-lg">
+                        The Mission</h2>
+
+                    <p class="text-xl text-gray-300 leading-relaxed mb-6 
+              first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+              first-letter:mr-2 first-letter:float-left first-letter:leading-[0.7] first-letter:font-serif">
+                        At lco. Corporation, we believe healthcare should be accessible to all. In a world of
+                        ever-developing
+                        innovation, we aren't just building faster algorithms; we're building a digital neighborhood
+                        where
+                        no
+                        one is left behind. Technology is our tool, but community is our compass.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Our Achievement</h3>
+                            <p class="text-gray-400">
+                            <div
+                                style="display: flex; align-items: center; gap: 12px; font-family: sans-serif; color: #fff;">
+                                <img src="img/seameo_ssys.svg" alt="SEAMEO SSYS"
+                                    style="height: 3.5em; width: auto; flex-shrink: 0;">
+
+                                <div style="margin-top: 4px; display: flex; flex-direction: column; gap: 2px;">
+                                    <div style="font-weight: bold; font-size: 1em; color: #a0aec0; line-height: 1;">14th
+                                        SEAMEO SSYS Congress</div>
+
+                                    <span class="text-gray-400 mt-1">3x Gold, 3x Silver, 1x Bronze, $1000
+                                        Seed Grant</span>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">The Vision</h3>
+                            <p class="text-gray-400">Providing telemedicine access to general consumers worldwide,
+                                on-demand.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:w-5/12 w-full">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1  rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://jpnmelaka.moe.gov.my/images/attachstore/bahan_muat_naik/SEKTOR_PENGURUSAN_SEKOLAH/UPS/LAPORAN_KEJAYAAN/28_KYS.JPG"
+                            alt="Healthcare Innovation"
+                            class="w-full h-[400px] object-cover opacity-80 hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="leadership-section" class="other-section pt-0">
+        <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-5/12 w-full">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1  rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="img/meeting_example.png" alt="Healthcare Innovation"
+                            class="w-full h-[590px] object-cover opacity-80 hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:w-7/12">
+                <div class="max-w-4xl">
+                    <h2
+                        class="text-4xl font-black uppercase mb-8 text-white bg-gray-600 px-3 py-1 md:px-4 md:py-2 rounded-full flex items-center shadow-lg">
+                        Our Leadership</h2>
+
+                    <p class="text-xl text-gray-300 leading-relaxed mb-6 
+              first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+              first-letter:mr-1 first-letter:float-left first-letter:leading-[0.7] ">
+                        Our core management leads with purpose—guiding strategy, aligning teams,
+                        and shaping the future of the company. We focus on operational excellence, sustainable
+                        innovation, and driving impact across every initiative we undertake.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Technical Founder & CEO</h3>
+                            <p class="text-gray-400">Rayyan Harith Ahmad Rozley</p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Strategic Founder & Chair</h3>
+                            <p class="text-gray-400">Luekesch Mogan</p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">VP, Business Operations</h3>
+                            <p class="text-gray-400">Radin Mohamad Adam Hazlam</p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Vice President, Paralegal</h3>
+                            <p class="text-gray-400">Joshua Soh</p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Vice President, Finance</h3>
+                            <p class="text-gray-400">Muhammad Azlan Jay bin Abdullah</p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Outreach Director</h3>
+                            <p class="text-gray-400">Muhammad Al Fateh Tarkhan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

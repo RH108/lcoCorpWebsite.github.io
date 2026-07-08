@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lco. Corporation - lco.fc</title>
+    <link class="nav-icon" rel="icon" type="image/x-icon" href="img/favicon.svg">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #070707;
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        @view-transition {
+            navigation: auto;
+        }
+
+        .hero-parallax {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('img/lco-fc-stadium.png');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .hero-parallax::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            z-index: 10;
+        }
+
+        .logo-side {
+            font-size: 8rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 1;
+        }
+
+        .slogan-side {
+            text-align: right;
+        }
+
+        .slogan-text {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .slogan-highlight {
+            display: block;
+            font-size: 5.5rem;
+        }
+
+        #navigation-bar {
+            background: linear-gradient(90deg, #2c2a2a 25%, transparent);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+        }
+
+        .other-section {
+            min-height: 100vh;
+            padding: 100px 5%;
+            background: #070707;
+            position: relative;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes drawPath {
+            from {
+                stroke-dashoffset: 600;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.2);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes subtleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .animate-pitch-boundary,
+        .animate-pitch-lines,
+        .animate-tactical-arrow {
+            opacity: 0;
+        }
+
+        .animate-player-1,
+        .animate-player-2,
+        .animate-player-3 {
+            opacity: 0;
+        }
+
+        .origin-center {
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+
+        .scrolled-active .animate-pitch-boundary {
+            opacity: 1;
+            stroke-dasharray: 600;
+            stroke-dashoffset: 600;
+            animation: drawPath 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .scrolled-active .animate-pitch-lines {
+            opacity: 1;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: drawPath 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.4s;
+        }
+
+        .scrolled-active .animate-tactical-arrow {
+            opacity: 1;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawPath 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 1s;
+        }
+
+        .scrolled-active .animate-player-1 {
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-delay: 0.8s;
+        }
+
+        .scrolled-active .animate-player-2 {
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-delay: 1.1s;
+        }
+
+        .scrolled-active .animate-player-3 {
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-delay: 1.4s;
+        }
+
+        .floating-pitch-card {
+            animation: subtleFloat 5s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .logo-side {
+                font-size: 5rem;
+            }
+
+            .slogan-side {
+                text-align: center;
+            }
+
+            .slogan-text {
+                font-size: 2.5rem;
+            }
+
+            .slogan-highlight {
+                font-size: 3.5rem;
+            }
+
+            .hero-parallax {
+                background-attachment: scroll;
+            }
+
+            .other-section {
+                flex-direction: column;
+                padding: 25px 10%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navigation-bar">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+            <div class="flex items-center space-x-4 md:space-x-12">
+                <img src="img/lco-fc.png" alt="Sihatbot Logo" class="h-6 md:h-10 object-contain">
+
+                <div class="hidden lg:flex items-center space-x-8 text-sm tracking-wide uppercase">
+                    <a href="/sihatbot.html" class="nav-link hover:text-gray-300 transition text-white">Home</a>
+                    <a href="/about-us.html" class="nav-link hover:text-gray-300 transition text-white">lco.
+                        Corporation</a>
+
+                    <div class="bg-white px-4 py-1.5 md:px-5 md:py-2 rounded-full flex items-center shadow-lg gap-2">
+                        <a href="/lco-fc.html"
+                            class="nav-link hover:text-gray-600 transition text-gray-900 font-bold flex items-center space-x-1.5">
+                            <span>lco.fc</span>
+                            <img src="img/ball-football.svg" alt="Football" class="h-4 w-4 object-contain">
+                        </a>
+                    </div>
+
+                    <a href="/contact-us.html" class="nav-link hover:text-gray-300 transition text-white">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-parallax">
+        <div class="hero-content">
+            <div class="logo-side">
+                <img src="img/lco-fc-kit_logo.svg" alt="lco. Logo" class="h-60 md:h-60 lg:h-60 w-auto object-contain"
+                    onerror="this.style.display='none'">
+            </div>
+            <div class="slogan-side">
+                <h1 class="slogan-text">
+                    Football
+                    <span class="slogan-highlight">Always.</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission-section" class="other-section pb-2">
+        <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12 w-full">
+            <div class="lg:w-7/12">
+                <div class="max-w-4xl">
+                    <h2
+                        class="text-4xl font-black uppercase mb-8 text-white bg-neutral-800 border border-white/10 px-6 py-3 rounded-full inline-flex items-center shadow-lg tracking-wider">
+                        Our Purpose
+                    </h2>
+
+                    <p class="text-xl text-gray-300 leading-relaxed mb-6 
+                    first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+                    first-letter:mr-2 first-letter:float-left first-letter:leading-[0.7] first-letter:font-serif">
+                        At lco.fc, football is a catalyst for unity, athletic excellence, and technological innovation.
+                        We aren't just building competitive squads; we are establishing a unique ecosystem where our
+                        athletes drive the development of SihatBot. By collecting and analyzing real-time player health
+                        and performance data on the pitch, our team serves as the foundational testing ground to pioneer
+                        next-generation medical triage AI. Technology is our enabler, but character, passion, and legacy
+                        serve as our definitive compass.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:w-5/12 w-full dynamic-scroll-card">
+                <div class="flex-grow flex items-center justify-center relative my-4 opacity-85 h-[220px]">
+                    <img src="img/Football_field.svg" alt="Tactical Pitch Background"
+                        style="transform: rotate(90deg); scale: 1.5;"
+                        class="absolute inset-0 w-full h-full object-contain pointer-events-none z-0">
+
+                    <svg class="w-full h-full max-h-[220px] relative z-10" viewBox="0 0 300 200" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path class="animate-tactical-arrow" d="M 88 65 Q 140 100 200 100" stroke="#10b981"
+                            stroke-width="2.5" stroke-dasharray="3 3" fill="none" />
+                        <path class="origin-center animate-player-3" d="M 195 95 L 202 100 L 195 105 Z"
+                            fill="#10b981" />
+
+                        <circle class="origin-center animate-player-1" cx="80" cy="60" r="8" fill="#ef4444"
+                            stroke="#fff" stroke-width="1.5" />
+                        <circle class="origin-center animate-player-2" cx="80" cy="140" r="8" fill="#ef4444"
+                            stroke="#fff" stroke-width="1.5" />
+                        <circle class="origin-center animate-player-3" cx="210" cy="100" r="8" fill="#3b82f6"
+                            stroke="#fff" stroke-width="1.5" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="leadership-section" class="other-section pt-0 pb-24">
+        <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12 w-full">
+            <div class="lg:w-5/12 w-full dynamic-scroll-card">
+                <img src="img/Banner.png" class="rounded-4xl">
+            </div>
+
+            <div class="lg:w-7/12">
+                <div class="max-w-4xl">
+                    <h2
+                        class="text-4xl font-black uppercase mb-8 text-white bg-neutral-800 border border-white/10 px-6 py-3 rounded-full inline-flex items-center shadow-lg tracking-wider">
+                        Our Leadership
+                    </h2>
+
+                    <p class="text-xl text-gray-300 leading-relaxed mb-8 
+                    first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+                    first-letter:mr-2 first-letter:float-left first-letter:leading-[0.7]">
+                        Our core team leads with absolute purpose—steering strategy, analyzing performance, and
+                        establishing a dominant blueprint for the academy. We focus on player pathway optimization,
+                        physical and technical excellence, and exporting talent to global leagues.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">General Manager</h3>
+                            <p class="text-gray-400">Rayyan Harith Ahmad Rozley</p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Club President</h3>
+                            <p class="text-gray-400">Luekesch Mogan</p>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Head Coach</h3>
+                            <p class="text-gray-400">Josiah</p>
+                            <div class="pt-3">
+                                <span class="inline-block bg-[#B48E4E] text-white px-2 py-1 rounded-full">Real Madrid
+                                    Foundation Academy</span>
+                            </div>
+                        </div>
+                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
+                            <h3 class="font-bold text-xl mb-2">Head Scout</h3>
+                            <p class="text-gray-400">Amin Zyad</p>
+                            <div class="pt-3">
+                                <span class="inline-block bg-[#B48E4E] text-white px-2 py-1 rounded-full">Real Madrid
+                                    Foundation Academy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.25
+            };
+
+            const intersectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('scrolled-active');
+                        // Unobserve to run animation only once on scroll
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Register observers on tactical components
+            const tacticalTargets = document.querySelectorAll('.dynamic-scroll-card');
+            tacticalTargets.forEach(target => intersectionObserver.observe(target));
+        });
+    </script>
+</body>
+
+</html>

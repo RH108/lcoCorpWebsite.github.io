@@ -8,20 +8,37 @@
     <link class="nav-icon" rel="icon" type="image/x-icon" href="img/favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+
+        :root {
+            --bg: #08090a;
+            --bg-panel: #101213;
+            --crimson: #A5203F;
+            --crimson-dim: #5c1526;
+            --gold: #C9A24B;
+            --pitch: #1C7A4D;
+            --ink-muted: #9a9a97;
+            --paper: #F3F1EB;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #070707;
-            color: white;
+            background-color: var(--bg);
+            color: var(--paper);
             margin: 0;
             overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Bebas Neue', 'Inter', sans-serif;
+            letter-spacing: 0.01em;
         }
 
         @view-transition {
             navigation: auto;
         }
 
+        /* ---------- HERO ---------- */
         .hero-parallax {
             position: relative;
             height: 100vh;
@@ -29,7 +46,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+            background-image: linear-gradient(180deg, rgba(6, 6, 7, 0.55) 0%, rgba(6, 6, 7, 0.85) 100%),
                 url('img/lco-fc-stadium.png');
             background-attachment: fixed;
             background-position: center;
@@ -40,14 +57,24 @@
         .hero-parallax::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            background-color: rgba(0, 0, 0, 0.1);
+            inset: 0;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             z-index: 1;
+        }
+
+        .ghost-number {
+            position: absolute;
+            right: -2vw;
+            bottom: -6vh;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 46vw;
+            line-height: 0.75;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(245, 244, 238, 0.08);
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
         }
 
         .hero-content {
@@ -56,47 +83,64 @@
             max-width: 1200px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
             padding: 0 2rem;
             z-index: 10;
+            gap: 3rem;
         }
 
-        .logo-side {
-            font-size: 8rem;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            line-height: 1;
+        .kit-mark {
+            width: 220px;
         }
 
         .slogan-side {
             text-align: right;
         }
 
-        .slogan-text {
-            font-size: 4rem;
-            font-weight: 900;
-            line-height: 0.9;
+        .slogan-line {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5.4rem;
+            line-height: 0.88;
             text-transform: uppercase;
-            letter-spacing: -0.02em;
         }
 
-        .slogan-highlight {
-            display: block;
-            font-size: 5.5rem;
+        .slogan-line.outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--paper);
         }
 
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1.75rem;
+            padding: 0.7rem 1.4rem;
+            border: 1px solid rgba(245, 244, 238, 0.3);
+            border-radius: 999px;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            transition: border-color 0.25s ease, background-color 0.25s ease;
+        }
+
+        .hero-cta:hover {
+            border-color: var(--gold);
+            background-color: rgba(201, 162, 75, 0.08);
+        }
+
+        /* ---------- NAV ---------- */
         #navigation-bar {
-            background: linear-gradient(90deg, #2c2a2a 25%, transparent);
+            background: linear-gradient(180deg, rgba(8, 9, 10, 0.9) 0%, transparent 100%);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 50;
         }
 
+        /* ---------- SECTIONS ---------- */
         .other-section {
             min-height: 100vh;
             padding: 100px 5%;
-            background: #070707;
+            background: var(--bg);
             position: relative;
             z-index: 20;
             display: flex;
@@ -104,51 +148,54 @@
             justify-content: center;
         }
 
-        @keyframes drawPath {
-            from {
-                stroke-dashoffset: 600;
-            }
+        .section-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.6rem;
+            letter-spacing: 0.02em;
+            color: var(--paper);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding-bottom: 0.6rem;
+        }
 
-            to {
-                stroke-dashoffset: 0;
-            }
+        .section-heading::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 3.5rem;
+            height: 3px;
+            background: var(--crimson);
+        }
+
+        /* Ticket-stub style panel used for Purpose / Leadership / Merch */
+        .tag-panel {
+            position: relative;
+            border: 1px solid rgba(245, 244, 238, 0.1);
+            background: var(--bg-panel);
+            clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+        }
+
+        @keyframes drawPath {
+            from { stroke-dashoffset: 600; }
+            to { stroke-dashoffset: 0; }
         }
 
         @keyframes popIn {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            80% {
-                transform: scale(1.2);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.2); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         @keyframes subtleFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-6px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
         .animate-pitch-boundary,
         .animate-pitch-lines,
-        .animate-tactical-arrow {
-            opacity: 0;
-        }
-
+        .animate-tactical-arrow,
         .animate-player-1,
         .animate-player-2,
         .animate-player-3 {
@@ -202,36 +249,91 @@
             animation: subtleFloat 5s ease-in-out infinite;
         }
 
+        /* ---------- MERCH ---------- */
+        .merch-shelf {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            padding: 0.5rem 0.25rem 1.5rem;
+            scroll-snap-type: x mandatory;
+        }
+
+        .merch-shelf::-webkit-scrollbar { height: 6px; }
+        .merch-shelf::-webkit-scrollbar-thumb { background: rgba(245,244,238,0.15); border-radius: 999px; }
+
+        .merch-card {
+            flex: 0 0 260px;
+            scroll-snap-align: start;
+            border: 1px solid rgba(245, 244, 238, 0.1);
+            background: var(--bg-panel);
+            clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+            display: flex;
+            flex-direction: column;
+        }
+
+        .merch-card-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #16181a;
+        }
+
+        .merch-card-body {
+            padding: 1rem 1.1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            flex-grow: 1;
+        }
+
+        .merch-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+
+        .merch-cta {
+            margin-top: auto;
+            font-size: 0.8rem;
+            color: var(--paper);
+            border-top: 1px solid rgba(245, 244, 238, 0.12);
+            padding-top: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .merch-skeleton {
+            flex: 0 0 260px;
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(100deg, #101213 30%, #16181a 50%, #101213 70%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 150% 0; }
+            100% { background-position: -50% 0; }
+        }
+
         @media (max-width: 768px) {
             .hero-content {
                 flex-direction: column;
+                align-items: center;
                 text-align: center;
                 gap: 2rem;
             }
 
-            .logo-side {
-                font-size: 5rem;
-            }
+            .kit-mark { width: 140px; }
+            .slogan-side { text-align: center; }
+            .slogan-line { font-size: 3rem; }
+            .ghost-number { font-size: 60vw; opacity: 0.6; }
 
-            .slogan-side {
-                text-align: center;
-            }
-
-            .slogan-text {
-                font-size: 2.5rem;
-            }
-
-            .slogan-highlight {
-                font-size: 3.5rem;
-            }
-
-            .hero-parallax {
-                background-attachment: scroll;
-            }
+            .hero-parallax { background-attachment: scroll; }
 
             .other-section {
                 flex-direction: column;
-                padding: 25px 10%;
+                padding: 70px 8%;
             }
         }
     </style>
@@ -241,21 +343,22 @@
     <nav id="navigation-bar">
         <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
             <div class="flex items-center space-x-4 md:space-x-12">
-                <img src="img/lco-fc.png" alt="Sihatbot Logo" class="h-6 md:h-10 object-contain">
+                <img src="img/lco-fc.png" alt="lco.fc Logo" class="h-6 md:h-10 object-contain">
 
-                <div class="hidden lg:flex items-center space-x-8 text-sm tracking-wide uppercase">
+                <div class="hidden lg:flex items-center space-x-8 text-sm tracking-wide">
                     <a href="/sihatbot.html" class="nav-link hover:text-gray-300 transition text-white">Home</a>
                     <a href="/about-us.html" class="nav-link hover:text-gray-300 transition text-white">lco.
                         Corporation</a>
 
-                    <div class="bg-white px-4 py-1.5 md:px-5 md:py-2 rounded-full flex items-center shadow-lg gap-2">
+                    <div class="bg-[color:var(--paper)] px-4 py-1.5 md:px-5 md:py-2 rounded-full flex items-center shadow-lg gap-2">
                         <a href="/lco-fc.html"
-                            class="nav-link hover:text-gray-600 transition text-gray-900 font-bold flex items-center space-x-1.5">
+                            class="nav-link hover:opacity-70 transition text-gray-900 font-bold flex items-center space-x-1.5">
                             <span>lco.fc</span>
                             <img src="img/ball-football.svg" alt="Football" class="h-4 w-4 object-contain">
                         </a>
                     </div>
 
+                    <a href="#merch" class="nav-link hover:text-gray-300 transition text-white">Merch</a>
                     <a href="/contact-us.html" class="nav-link hover:text-gray-300 transition text-white">Contact Us</a>
                 </div>
             </div>
@@ -263,16 +366,18 @@
     </nav>
 
     <section class="hero-parallax">
+        <div class="ghost-number">07</div>
         <div class="hero-content">
-            <div class="logo-side">
-                <img src="img/lco-fc-kit_logo.svg" alt="lco. Logo" class="h-60 md:h-60 lg:h-60 w-auto object-contain"
-                    onerror="this.style.display='none'">
-            </div>
+            <img src="img/lco-fc-kit_logo.svg" alt="lco. Logo" class="kit-mark object-contain"
+                onerror="this.style.display='none'">
             <div class="slogan-side">
-                <h1 class="slogan-text">
-                    Football
-                    <span class="slogan-highlight">Always.</span>
+                <h1 class="m-0">
+                    <span class="slogan-line block">Football</span>
+                    <span class="slogan-line outline block">Always.</span>
                 </h1>
+                <a href="#leadership-section" class="hero-cta">
+                    Meet the squad
+                </a>
             </div>
         </div>
     </section>
@@ -281,13 +386,10 @@
         <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12 w-full">
             <div class="lg:w-7/12">
                 <div class="max-w-4xl">
-                    <h2
-                        class="text-4xl font-black uppercase mb-8 text-white bg-neutral-800 border border-white/10 px-6 py-3 rounded-full inline-flex items-center shadow-lg tracking-wider">
-                        Our Purpose
-                    </h2>
+                    <h2 class="section-heading">Our Purpose</h2>
 
-                    <p class="text-xl text-gray-300 leading-relaxed mb-6 
-                    first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+                    <p class="text-xl text-gray-300 leading-relaxed mb-6
+                    first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white
                     first-letter:mr-2 first-letter:float-left first-letter:leading-[0.7] first-letter:font-serif">
                         At lco.fc, football is a catalyst for unity, athletic excellence, and technological innovation.
                         We aren't just building competitive squads; we are establishing a unique ecosystem where our
@@ -300,21 +402,21 @@
             </div>
 
             <div class="lg:w-5/12 w-full dynamic-scroll-card">
-                <div class="flex-grow flex items-center justify-center relative my-4 opacity-85 h-[220px]">
+                <div class="tag-panel flex-grow flex items-center justify-center relative my-4 h-[240px] overflow-hidden">
                     <img src="img/Football_field.svg" alt="Tactical Pitch Background"
                         style="transform: rotate(90deg); scale: 1.5;"
-                        class="absolute inset-0 w-full h-full object-contain pointer-events-none z-0">
+                        class="absolute inset-0 w-full h-full object-contain pointer-events-none z-0 opacity-70">
 
                     <svg class="w-full h-full max-h-[220px] relative z-10" viewBox="0 0 300 200" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
-                        <path class="animate-tactical-arrow" d="M 88 65 Q 140 100 200 100" stroke="#10b981"
+                        <path class="animate-tactical-arrow" d="M 88 65 Q 140 100 200 100" stroke="var(--gold)"
                             stroke-width="2.5" stroke-dasharray="3 3" fill="none" />
                         <path class="origin-center animate-player-3" d="M 195 95 L 202 100 L 195 105 Z"
-                            fill="#10b981" />
+                            fill="var(--gold)" />
 
-                        <circle class="origin-center animate-player-1" cx="80" cy="60" r="8" fill="#ef4444"
+                        <circle class="origin-center animate-player-1" cx="80" cy="60" r="8" fill="var(--crimson)"
                             stroke="#fff" stroke-width="1.5" />
-                        <circle class="origin-center animate-player-2" cx="80" cy="140" r="8" fill="#ef4444"
+                        <circle class="origin-center animate-player-2" cx="80" cy="140" r="8" fill="var(--crimson)"
                             stroke="#fff" stroke-width="1.5" />
                         <circle class="origin-center animate-player-3" cx="210" cy="100" r="8" fill="#3b82f6"
                             stroke="#fff" stroke-width="1.5" />
@@ -327,47 +429,42 @@
     <section id="leadership-section" class="other-section pt-0 pb-24">
         <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12 w-full">
             <div class="lg:w-5/12 w-full dynamic-scroll-card">
-                <img src="img/Banner.png" class="rounded-4xl">
+                <img src="img/Banner.png" class="tag-panel w-full object-cover">
             </div>
 
             <div class="lg:w-7/12">
                 <div class="max-w-4xl">
-                    <h2
-                        class="text-4xl font-black uppercase mb-8 text-white bg-neutral-800 border border-white/10 px-6 py-3 rounded-full inline-flex items-center shadow-lg tracking-wider">
-                        Our Leadership
-                    </h2>
+                    <h2 class="section-heading">Our Leadership</h2>
 
-                    <p class="text-xl text-gray-300 leading-relaxed mb-8 
-                    first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+                    <p class="text-xl text-gray-300 leading-relaxed mb-8
+                    first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white
                     first-letter:mr-2 first-letter:float-left first-letter:leading-[0.7]">
                         Our core team leads with absolute purpose—steering strategy, analyzing performance, and
                         establishing a dominant blueprint for the academy. We focus on player pathway optimization,
                         physical and technical excellence, and exporting talent to global leagues.
                     </p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
-                            <h3 class="font-bold text-xl mb-2">General Manager</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
+                        <div class="tag-panel p-6">
+                            <h3 class="font-display text-2xl mb-1 text-[color:var(--gold)]">General Manager</h3>
                             <p class="text-gray-400">Rayyan Harith Ahmad Rozley</p>
                         </div>
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
-                            <h3 class="font-bold text-xl mb-2">Club President</h3>
+                        <div class="tag-panel p-6">
+                            <h3 class="font-display text-2xl mb-1 text-[color:var(--gold)]">Club President</h3>
                             <p class="text-gray-400">Luekesch Mogan</p>
                         </div>
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
-                            <h3 class="font-bold text-xl mb-2">Head Coach</h3>
+                        <div class="tag-panel p-6">
+                            <h3 class="font-display text-2xl mb-1 text-[color:var(--gold)]">Head Coach</h3>
                             <p class="text-gray-400">Josiah</p>
-                            <div class="pt-3">
-                                <span class="inline-block bg-[#B48E4E] text-white px-2 py-1 rounded-full">Real Madrid
-                                    Foundation Academy</span>
+                            <div class="pt-3 text-sm text-gray-300 border-t border-white/10 mt-3">
+                                Real Madrid Foundation Academy
                             </div>
                         </div>
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5">
-                            <h3 class="font-bold text-xl mb-2">Head Scout</h3>
+                        <div class="tag-panel p-6">
+                            <h3 class="font-display text-2xl mb-1 text-[color:var(--gold)]">Head Scout</h3>
                             <p class="text-gray-400">Amin Zyad</p>
-                            <div class="pt-3">
-                                <span class="inline-block bg-[#B48E4E] text-white px-2 py-1 rounded-full">Real Madrid
-                                    Foundation Academy</span>
+                            <div class="pt-3 text-sm text-gray-300 border-t border-white/10 mt-3">
+                                Real Madrid Foundation Academy
                             </div>
                         </div>
                     </div>
@@ -376,28 +473,102 @@
         </div>
     </section>
 
+    <section id="merch" class="other-section pt-0 pb-32">
+        <div class="max-w-7xl w-full">
+            <h2 class="section-heading">Official Merchandise</h2>
+            <p class="text-lg text-gray-400 max-w-2xl mb-8">
+                Kits, training wear, and matchday drops, printed and fulfilled through our Printify store.
+            </p>
+
+            <div id="merch-shelf" class="merch-shelf">
+                <!-- Skeletons shown while products load; replaced by renderProducts() -->
+                <div class="merch-skeleton"></div>
+                <div class="merch-skeleton"></div>
+                <div class="merch-skeleton"></div>
+            </div>
+            <p id="merch-status" class="text-sm text-gray-500 mt-2"></p>
+        </div>
+    </section>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.25
-            };
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.25 };
 
             const intersectionObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('scrolled-active');
-                        // Unobserve to run animation only once on scroll
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            // Register observers on tactical components
-            const tacticalTargets = document.querySelectorAll('.dynamic-scroll-card');
-            tacticalTargets.forEach(target => intersectionObserver.observe(target));
+            document.querySelectorAll('.dynamic-scroll-card').forEach(target => intersectionObserver.observe(target));
         });
+    </script>
+
+    <script>
+        const PRINTIFY_CONFIG = {
+            // Your backend proxy that returns Printify's product list JSON.
+            proxyUrl: 'https://www.lcocorp.com/api/printify/products',
+            storefrontUrl: 'https://lco.printify.me'
+        };
+
+        async function loadMerch() {
+            const shelf = document.getElementById('merch-shelf');
+            const status = document.getElementById('merch-status');
+
+            try {
+                const res = await fetch(PRINTIFY_CONFIG.proxyUrl);
+                if (!res.ok) throw new Error('Bad response from proxy');
+                const payload = await res.json();
+                const products = Array.isArray(payload) ? payload : (payload.data || []);
+                renderProducts(products);
+            } catch (err) {
+                shelf.innerHTML = '';
+                status.textContent = 'Merch is on the bench right now — check back shortly.';
+                console.error('Printify load failed:', err);
+            }
+        }
+
+        function renderProducts(products) {
+            const shelf = document.getElementById('merch-shelf');
+            const status = document.getElementById('merch-status');
+            shelf.innerHTML = '';
+
+            if (!products.length) {
+                status.textContent = 'No products published yet.';
+                return;
+            }
+
+            products.forEach(p => {
+                const image = p.images?.[0]?.src || '';
+                const title = p.title || 'lco.fc item';
+                const enabledVariants = (p.variants || []).filter(v => v.is_enabled);
+                const price = enabledVariants.length
+                    ? Math.min(...enabledVariants.map(v => v.price)) / 100
+                    : null;
+
+                const card = document.createElement('a');
+                card.href = PRINTIFY_CONFIG.storefrontUrl;
+                card.target = '_blank';
+                card.rel = 'noopener';
+                card.className = 'merch-card';
+                card.innerHTML = `
+                    <img class="merch-card-img" src="${image}" alt="${title}" loading="lazy">
+                    <div class="merch-card-body">
+                        <h3 class="font-display text-xl">${title}</h3>
+                        ${price !== null ? `<span class="merch-price">RM ${price.toFixed(2)}</span>` : ''}
+                        <span class="merch-cta">Shop now &rsaquo;</span>
+                    </div>
+                `;
+                shelf.appendChild(card);
+            });
+
+            status.textContent = '';
+        }
+
+        loadMerch();
     </script>
 </body>
 

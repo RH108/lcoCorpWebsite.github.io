@@ -30,7 +30,7 @@ const {
     PRINTIFY_API_TOKEN,
     PRINTIFY_SHOP_ID,
     ALLOWED_ORIGIN = '*',
-    PORT = 3000
+    PORT
 } = process.env;
 
 const PRINTIFY_BASE = 'https://api.printify.com/v1';

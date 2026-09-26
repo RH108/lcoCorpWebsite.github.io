@@ -1,27 +1,6 @@
-// app.js
-//
-// Printify connect service for lco.fc merch.
-// Holds the Printify API token server-side and exposes a small set of
-// read-only endpoints the front end (lco-fc.html) can call safely.
-//
-// Setup:
-//   npm init -y
-//   npm install express dotenv
-//   node --version   # needs 18+ for built-in fetch
-//
-// .env (create this file, never commit it):
-//   PRINTIFY_API_TOKEN=your_token_here
-//   PRINTIFY_SHOP_ID=your_shop_id_here
-//   ALLOWED_ORIGIN=https://your-site.com
-//   PORT=3000
-//
-// Get PRINTIFY_SHOP_ID from GET https://api.printify.com/v1/shops.json
-// Get PRINTIFY_API_TOKEN from Printify > My Account > Connections > API tokens.
-//
-// Run:
-//   node app.js
 
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 
 const app = express();
@@ -32,11 +11,10 @@ const {
     ALLOWED_ORIGIN = '*'
 } = process.env;
 
-// Provide a reliable fallback port for local dev & cloud hosts like Render
 const PORT = process.env.PORT || 3000;
 
 const PRINTIFY_BASE = 'https://api.printify.com/v1';
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes — Printify rate-limits aggressively
+const CACHE_TTL_MS = 5 * 60 * 1000;
 
 if (!PRINTIFY_API_TOKEN || !PRINTIFY_SHOP_ID) {
     console.warn('[printify-connect] Missing PRINTIFY_API_TOKEN or PRINTIFY_SHOP_ID in .env — requests will fail until set.');
@@ -55,13 +33,17 @@ function setCached(key, value) {
     cache.set(key, { value, time: Date.now() });
 }
 
-// ---------- shared CORS + Printify request helper ----------
 app.use((req, res, next) => {
     res.set('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
     res.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
     if (req.method === 'OPTIONS') return res.sendStatus(204);
     next();
 });
+
+app.use(express.static(path.join(__dirname), {
+    extensions: ['html'],
+    index: 'index.html'
+}));
 
 async function printifyFetch(path) {
     const res = await fetch(`${PRINTIFY_BASE}${path}`, {
@@ -92,15 +74,12 @@ function requireToken(req, res, next) {
     next();
 }
 
-// ---------- routes ----------
 
 app.get('/health', (req, res) => {
     res.json({ ok: true, configured: Boolean(PRINTIFY_API_TOKEN && PRINTIFY_SHOP_ID) });
 });
 
-// List shops connected to this Printify account — use this to find your
-// PRINTIFY_SHOP_ID. Visit /api/printify/shops (or run `node app.js --shops`,
-// see bottom of file) and copy the "id" of the shop you want.
+
 app.get('/api/printify/shops', requireToken, async (req, res) => {
     try {
         const cached = getCached('shops');
@@ -117,7 +96,6 @@ app.get('/api/printify/shops', requireToken, async (req, res) => {
     }
 });
 
-// List published, visible products for the configured shop.
 app.get('/api/printify/products', requireConfig, async (req, res) => {
     try {
         const cacheKey = `products:${PRINTIFY_SHOP_ID}`;
@@ -136,7 +114,6 @@ app.get('/api/printify/products', requireConfig, async (req, res) => {
     }
 });
 
-// Single product detail, e.g. for a product page.
 app.get('/api/printify/products/:id', requireConfig, async (req, res) => {
     try {
         const cacheKey = `product:${req.params.id}`;
@@ -155,8 +132,6 @@ app.get('/api/printify/products/:id', requireConfig, async (req, res) => {
 // 404 fallback
 app.use((req, res) => res.status(404).json({ error: 'Not found' }));
 
-// ---------- CLI shortcut: `node app.js --shops` ----------
-// Prints your shop IDs straight to the terminal, no server needed.
 async function printShopsAndExit() {
     if (!PRINTIFY_API_TOKEN) {
         console.error('Missing PRINTIFY_API_TOKEN in .env');

@@ -29,9 +29,11 @@ const app = express();
 const {
     PRINTIFY_API_TOKEN,
     PRINTIFY_SHOP_ID,
-    ALLOWED_ORIGIN = '*',
-    PORT
+    ALLOWED_ORIGIN = '*'
 } = process.env;
+
+// Provide a reliable fallback port for local dev & cloud hosts like Render
+const PORT = process.env.PORT || 3000;
 
 const PRINTIFY_BASE = 'https://api.printify.com/v1';
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes — Printify rate-limits aggressively
@@ -175,7 +177,8 @@ async function printShopsAndExit() {
 if (process.argv.includes('--shops')) {
     printShopsAndExit();
 } else {
-    app.listen(PORT, () => {
-        console.log(`[printify-connect] listening on :${PORT}`);
+    // Explicitly bind to '0.0.0.0' for Render and other cloud providers
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`[printify-connect] listening on port ${PORT}`);
     });
 }

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lco. Corporation - Sihatbot™</title>
+    <title>Sihatbot™ — AI Health Pre-Diagnosis | lco. Corporation</title>
+    <meta name="description" content="Sihatbot is lco. Corporation's AI-powered pre-diagnosis assistant — describe your symptoms in plain language and get clear, evidence-based next steps in minutes.">
     <link rel="icon" type="image/x-icon" href="img/favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -57,6 +58,11 @@
             pointer-events: none;
         }
 
+        .stat-block {
+            border-left: 2px solid #561008;
+            padding-left: 1rem;
+        }
+
         @media (max-width: 768px) {
             #canvas-container {
                 opacity: 0.3;
@@ -80,6 +86,13 @@
 
             .flex-start-mobile {
                 justify-content: center;
+            }
+
+            .stat-block {
+                border-left: none;
+                border-top: 2px solid #561008;
+                padding-left: 0;
+                padding-top: 0.5rem;
             }
         }
 
@@ -121,7 +134,8 @@
                         class="nav-link hover:text-gray-300 transition text-white font-bold">Home</a>
                     <a href="/about-us.html" class="nav-link hover:text-gray-300 transition text-white">lco.
                         Corporation</a>
-                    <a href="/contact-us.html" class="nav-link hover:text-gray-300 transition text-white">Contact Us</a>
+                    <a href="/contact-us.html" class="nav-link hover:text-gray-300 transition text-white">Contact
+                        Us</a>
                 </div>
             </div>
             <div class="flex items-center">
@@ -136,14 +150,15 @@
         <div class="content-box">
             <h1
                 class="text-[#561008] text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tight mb-4 border-b-8 border-red-800 inline-block leading-none">
-                Telemedicine <br> Made Simple
+                Healthcare <br> Made Easy
             </h1>
-            <p class="text-black text-base md:text-xl mt-4 md:mt-8 leading-relaxed mb-6 md:mb-10"><span
-                    class="text-red-900 font-semibold">Stop guessing,</span> start knowing. The first AI-powered
-                pre-diagnosis and health advice expert. </p>
+            <p class="text-black text-base md:text-xl mt-4 md:mt-8 leading-relaxed mb-6 md:mb-10">
+                Describe your symptoms in plain language and Sihatbot walks you through likely causes, urgency, and
+                what to do next — before you ever book an appointment.
+            </p>
 
             <div class="mb-8 md:mb-12">
-                <p class="text-xs uppercase font-bold tracking-[0.2em] text-gray-500 mb-4">As seen on</p>
+                <p class="text-sm font-semibold text-gray-600 mb-4">Featured in</p>
                 <div class="flex items-center space-x-4 md:space-x-8 flex-start-mobile">
                     <img src="img/buttons/sinarbestari.png" alt="Sinar Bestari" class="h-9 md:h-11">
                     <div class="h-6 md:h-8 w-[1px] bg-red-900"></div>
@@ -156,47 +171,50 @@
             <div class="flex items-center space-x-3 cursor-pointer group flex-start-mobile">
                 <div class="scroll-indicator">
                     <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                        </path>
                     </svg>
                 </div>
-                <span class="text-black uppercase font-bold tracking-widest text-sm md:text-base">Scroll to
-                    Rotate</span>
+                <span class="text-black font-semibold text-sm md:text-base">Scroll to see how it works</span>
             </div>
         </div>
     </section>
 
     <section class="scroll-section" id="section-1">
         <div class="content-box">
-            <h2 class="text-black text-3xl md:text-4xl lg:text-6xl font-black uppercase leading-tight mb-4">
-                Trusted. <br> Seamless. Secure.
+            <h2 class="text-black text-3xl md:text-4xl lg:text-6xl font-black uppercase leading-tight mb-6">
+                Built Around <br> the Patient
             </h2>
-            <ul class="text-black text-base md:text-xl mt-4 list-none">
-                <li class="flex items-start flex-start-mobile">
-                    <span class="mr-2 text-red-500">•</span>
-                    <span>Highly Intuitive UI</span>
-                </li>
-                <li class="flex items-start flex-start-mobile">
-                    <span class="mr-2 text-red-500">•</span>
-                    <span>Encrypted Data Privacy</span>
-                </li>
-                <li class="flex items-start flex-start-mobile">
-                    <span class="mr-2 text-red-500">•</span>
-                    <span style="display: inline-flex; align-items: center; gap: 5px; vertical-align: middle;">
-                        Cross-Platform Support (
-                        <img src="img/apple.svg" alt="iOS" style="height: 1em; width: auto;">
-                        iOS /
-                        <img src="img/android.svg" alt="Android" style="height: 1em; width: auto;">
-                        Android)
-                    </span>
-                </li>
-                <li class="flex items-start flex-start-mobile">
-                    <span class="mr-2 text-red-500">•</span>
-                    <span>Real-time AI Diagnostics</span>
-                </li>
-            </ul>
+            <div class="grid grid-cols-2 gap-x-6 gap-y-5 mt-4">
+                <div class="stat-block">
+                    <p class="text-black font-bold text-lg">Plain-language chat</p>
+                    <p class="text-black text-sm mt-1 opacity-80">No medical jargon — describe symptoms the way
+                        you'd tell a friend.</p>
+                </div>
+                <div class="stat-block">
+                    <p class="text-black font-bold text-lg">Private by design</p>
+                    <p class="text-black text-sm mt-1 opacity-80">Your health data is encrypted end-to-end and never
+                        sold.</p>
+                </div>
+                <div class="stat-block">
+                    <p class="text-black font-bold text-lg">iOS &amp; Android</p>
+                    <p class="text-black text-sm mt-1 opacity-80 flex items-center gap-1.5 flex-wrap">
+                        One app, built for
+                        <img src="img/apple.svg" alt="iOS" style="height: 1em; width: auto;" class="inline">
+                        and
+                        <img src="img/android.svg" alt="Android" style="height: 1em; width: auto;" class="inline">
+                        from day one.
+                    </p>
+                </div>
+                <div class="stat-block">
+                    <p class="text-black font-bold text-lg">Always-on triage</p>
+                    <p class="text-black text-sm mt-1 opacity-80">Real-time AI guidance, day or night, before you
+                        need a clinic.</p>
+                </div>
+            </div>
 
-            <div class="mt-8">
-                <p class="text-xs uppercase font-bold tracking-[0.2em] text-gray-500 mb-4">Official Endorsements</p>
+            <div class="mt-10">
+                <p class="text-sm font-semibold text-gray-600 mb-4">Backed by</p>
                 <div class="flex items-center space-x-4 md:space-x-6 flex-start-mobile">
                     <img src="img/kpm_logo.png" alt="KPM Logo" class="h-10 md:h-16 w-auto object-contain">
                     <div class="h-6 md:h-8 w-[1px] bg-red-900"></div>
@@ -209,16 +227,17 @@
     <section class="scroll-section" id="section-2">
         <div class="content-box">
             <h2 class="text-black text-3xl md:text-4xl lg:text-6xl font-black uppercase leading-tight mb-4">
-                Ready <br> When You Are
+                Your Pocket <br> Health Guide
             </h2>
-            <p class="text-black text-base md:text-xl mt-4">
-                Professional-grade health insights, available 24/7. Download now and keep your health in your pocket.
-                <br><br>
-                <span class="font-semibold text-red-900">Coming Soon!</span>
+            <p class="text-black text-base md:text-xl mt-4 leading-relaxed">
+                Professional-grade health insights, available whenever you need them. Be the first to know when
+                Sihatbot launches.
             </p>
+            <p class="font-bold text-red-900 mt-4 text-lg">Coming soon to iOS and Android.</p>
             <div class="mt-8 flex space-x-4 flex-start-mobile pointer-events-auto">
-                <img src="img/buttons/playstore.svg" class="h-10 md:h-12 cursor-pointer" alt="Play Store">
-                <img src="img/buttons/appstore.svg" class="h-10 md:h-12 cursor-pointer" alt="App Store">
+                <img src="img/buttons/playstore.svg" class="h-10 md:h-12 cursor-pointer" alt="Get it on Google Play">
+                <img src="img/buttons/appstore.svg" class="h-10 md:h-12 cursor-pointer"
+                    alt="Download on the App Store">
             </div>
         </div>
     </section>

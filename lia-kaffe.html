@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lia's Kaffe — Pies, Cakes &amp; Cookies | lco. Corporation</title>
+    <meta name="description" content="Lia's Kaffe bakes KaffePies, cream puffs, bread, brownies, cheesecake and soft cookies. Order online through TikTok @lias.kaffe.">
+    <link rel="icon" type="image/png" href="img/Lia-Kaffe-Logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;700&family=Inter:wght@400;700;900&display=swap');
+
+        :root {
+            --berry: #b74153;
+            --berry-deep: #8e2c3c;
+            --marigold: #ffb03a;
+            --sky: #c2eafb;
+            --ink: #3a1620;
+            --paper: #fffdfb;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .display { font-family: 'Bricolage Grotesque', 'Figtree', sans-serif; }
+
+        @view-transition { navigation: auto; }
+
+        /* Navigation bar: same structure as before, recoloured to the cafe's berry */
+        #navigation-bar {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(90deg, var(--berry) 25%, transparent);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+        }
+
+        section { position: relative; }
+        .wrap { max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; position: relative; z-index: 2; }
+
+        /* The saucer: an oval echoing the logo's blue plate */
+        .saucer {
+            background: var(--sky);
+            border-radius: 50%;
+            position: absolute;
+            z-index: 0;
+        }
+
+        /* Round food photos, scattered around the page */
+        .plate {
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid #fff;
+            box-shadow: 0 0 0 6px var(--sky);
+            aspect-ratio: 1 / 1;
+            background: var(--sky);
+        }
+        .plate img { object-fit: cover; width: 100%; height: 100%; display: block; }
+        .gold { box-shadow: 0 0 0 8px var(--marigold); }
+        .sp { position: absolute; z-index: 1; }
+
+        .btn {
+            display: inline-block;
+            background: var(--berry);
+            color: #fff;
+            font-weight: 700;
+            padding: .85rem 1.6rem;
+            border-radius: 999px;
+            transition: background .15s;
+        }
+        .btn:hover { background: var(--berry-deep); }
+        .btn-alt { background: var(--marigold); color: var(--ink); }
+        .btn-alt:hover { background: #f59e0b; }
+        .btn:focus-visible, a:focus-visible { outline: 3px solid var(--marigold); outline-offset: 3px; }
+
+        /* Price list */
+        .menu-cols { columns: 1; column-gap: 4rem; }
+        @media (min-width: 900px) { .menu-cols { columns: 2; } }
+        .cat {
+            break-inside: avoid;
+            border-left: 10px solid var(--marigold);
+            border-radius: 6px;
+            padding-left: 1.1rem;
+            margin-bottom: 2.75rem;
+        }
+        .cat-head, .row { display: flex; align-items: baseline; gap: .6rem; }
+        .cat-head { font-weight: 800; color: var(--berry); font-size: 1.35rem; margin-bottom: .35rem; }
+        .cat-head .cur { margin-left: auto; font-size: 1rem; }
+        .row { padding: .22rem 0; font-size: 1.1rem; }
+        .row .dots { flex: 1; border-bottom: 3px dotted #e6b7bf; transform: translateY(-4px); min-width: 1rem; }
+        .row .price { font-weight: 700; font-variant-numeric: tabular-nums; }
+        .note { font-size: .85rem; opacity: .7; margin: -.1rem 0 0; }
+
+        /* ---------- Motion ---------- */
+        @keyframes pop { from { scale: .85; rotate: -8deg; opacity: 0; } }
+        @keyframes rise { from { opacity: 0; translate: 0 28px; } }
+        @keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+        @keyframes drift { 0%, 100% { translate: 0 0; } 50% { translate: 3rem 0; } }
+
+        .plate { animation: bob var(--t, 6s) ease-in-out var(--dl, 0s) infinite; transition: scale .25s; }
+        .plate:hover { scale: 1.07; }
+        .enter {
+            animation: pop .8s cubic-bezier(.2, .8, .3, 1) var(--e, 0s) both,
+                       bob var(--t, 6s) ease-in-out calc(var(--e, 0s) + .8s) infinite;
+        }
+        .rise { animation: rise .8s cubic-bezier(.2, .8, .3, 1) var(--e, 0s) both; }
+        .saucer { animation: drift 16s ease-in-out infinite; }
+
+        .btn { transition: background .15s, translate .2s; }
+        .btn:hover { translate: 0 -3px; }
+
+        /* Scroll reveals (only when JS is running) */
+        .js .reveal { opacity: 0; translate: 0 26px; transition: opacity .7s ease, translate .7s cubic-bezier(.2, .8, .3, 1); }
+        .js .reveal.in { opacity: 1; translate: 0 0; }
+        /* Dotted leaders draw in left to right, row by row */
+        .js .row .dots { clip-path: inset(0 100% 0 0); transition: clip-path .7s ease calc(var(--i, 0) * 90ms + .25s); }
+        .js .cat.in .dots { clip-path: inset(0 0 0 0); }
+        .js .row .price { opacity: 0; transition: opacity .4s ease calc(var(--i, 0) * 90ms + .6s); }
+        .js .cat.in .price { opacity: 1; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .js .reveal { opacity: 1; translate: 0 0; }
+            .js .row .dots { clip-path: none; }
+            .js .row .price { opacity: 1; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+    <script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+    <nav id="navigation-bar">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+            <div class="flex items-center space-x-4 md:space-x-12">
+                <div class="bg-white px-3 py-1 md:px-4 md:py-2 rounded-full flex items-center shadow-lg">
+                    <img src="img/Lia-Kaffe-Logo.png" alt="Lia's Kaffe Logo" class="h-6 md:h-10 object-contain">
+                </div>
+                <div class="hidden lg:flex space-x-8 text-sm tracking-wide uppercase">
+                    <a href="/index.html" class="nav-link hover:text-gray-300 transition text-white font-bold">Home</a>
+                    <a href="/about-us.html" class="nav-link hover:text-gray-300 transition text-white">lco.
+                        Corporation</a>
+                    <a href="/contact-us.html" class="nav-link hover:text-gray-300 transition text-white">Contact
+                        Us</a>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <img src="img/company_logo.webp" alt="Company Logo" class="h-8 md:h-12 w-auto object-contain">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="overflow-hidden" style="padding-top: 10rem; padding-bottom: 5rem;">
+        <div class="saucer" style="width: 62rem; height: 20rem; right: -14rem; bottom: 1rem;"></div>
+        <div class="wrap grid md:grid-cols-2 gap-10 items-center">
+            <div>
+                <h1 style="--e:.05s" class="rise display text-5xl md:text-6xl lg:text-7xl leading-[1.02]" style="font-weight: 800; color: var(--berry);">
+                    Pie, cake and a good cup of coffee.
+                </h1>
+                <p style="--e:.2s" class="rise text-lg md:text-xl mt-6 leading-relaxed max-w-md">
+                    Lia's Kaffe bakes pies, cream puffs, brownies, cheesecake and soft cookies to go with your coffee. See the menu, then place your order on TikTok.
+                </p>
+                <div style="--e:.35s" class="rise mt-8 flex flex-wrap gap-3">
+                    <a href="#menu" class="btn">See the menu</a>
+                    <a href="https://www.tiktok.com/@lias.kaffe" target="_blank" rel="noopener" class="btn btn-alt">Order on TikTok</a>
+                </div>
+            </div>
+            <div class="relative mx-auto w-full max-w-md" style="height: 26rem;">
+                <div class="plate gold enter sp" style="--e:.2s; width: 17rem; left: 50%; top: 50%; margin: -8.5rem 0 0 -8.5rem;">
+                    <img src="images-of-food/choco-cake.jpg" alt="A slice of chocolate cake">
+                </div>
+                <div class="plate enter sp" style="--e:.6s; --t:7s; width: 8.5rem; left: 0; top: 0; rotate: -6deg;">
+                    <img src="images-of-food/apple-pie.jpg" alt="Apple pie">
+                </div>
+                <div class="plate enter sp" style="--e:.8s; --t:5.5s; width: 9.5rem; right: 0; bottom: 0; rotate: 5deg;">
+                    <img src="images-of-food/soft-cookies.jpg" alt="Soft cookies">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section id="menu" class="overflow-hidden" style="padding: 4rem 0 9rem;">
+        <div class="wrap">
+            <div class="flex items-center justify-between gap-6 reveal">
+                <div>
+                    <h2 class="display text-4xl md:text-5xl" style="font-weight: 800; color: var(--berry);">The menu</h2>
+                    <p class="mt-3 text-lg max-w-xl">Everything is ordered online through TikTok @lias.kaffe. Prices are in Malaysian ringgit (MYR).</p>
+                </div>
+                <div class="plate hidden md:block shrink-0" style="width: 9rem; rotate: 6deg;">
+                    <img src="images-of-food/pecan-pie.jpg" alt="Pecan pie" loading="lazy">
+                </div>
+            </div>
+
+            <div id="menu-list" class="menu-cols mt-12"></div>
+        </div>
+
+        <div class="plate sp" style="width: 11rem; left: -3rem; bottom: -2.5rem; rotate: -8deg;">
+            <img src="images-of-food/creme-cake.jpg" alt="Creme cake" loading="lazy">
+        </div>
+        <div class="plate gold sp" style="width: 12rem; right: -2.5rem; bottom: -3rem; rotate: 7deg;">
+            <img src="images-of-food/choco-pie.jpg" alt="Chocolate pie" loading="lazy">
+        </div>
+    </section>
+
+    <!-- Story -->
+    <section class="overflow-hidden" style="background: var(--berry); color: #fff; padding: 5rem 0;">
+        <div class="wrap grid md:grid-cols-5 gap-10 items-center">
+            <div class="md:col-span-3 reveal">
+                <h2 class="display text-4xl md:text-5xl" style="font-weight: 800;">Made to share over coffee</h2>
+                <p class="text-lg mt-5 leading-relaxed max-w-xl">
+                    Lia's Kaffe started with a simple idea: a good cup deserves something sweet beside it. Every pie, puff, brownie and cookie on the menu is chosen to sit well with a hot or iced coffee.
+                </p>
+                <p class="text-lg mt-4 leading-relaxed max-w-xl">
+                    We take orders online only, through TikTok. Find us at @lias.kaffe, pick what you like and send your order.
+                </p>
+            </div>
+            <div class="md:col-span-2 relative mx-auto w-full max-w-xs" style="height: 19rem;">
+                <div class="plate sp" style="width: 13rem; left: 0; top: 0; border-color: var(--berry); box-shadow: 0 0 0 8px var(--marigold);">
+                    <img src="images-of-food/banana-bread.jpg" alt="Banana bread" loading="lazy">
+                </div>
+                <div class="plate sp" style="width: 9.5rem; right: 0; bottom: 0; border-color: var(--berry); rotate: 6deg;">
+                    <img src="images-of-food/fruit-cake.jpg" alt="Fruit cake" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order -->
+    <section id="order" class="overflow-hidden" style="padding: 5rem 0;">
+        <div class="saucer" style="width: 56rem; height: 16rem; left: -12rem; top: 2rem;"></div>
+        <div class="plate gold sp hidden md:block" style="width: 13rem; right: 6%; top: 50%; margin-top: -6.5rem; rotate: -5deg;">
+            <img src="images-of-food/soft-cookies-2.jpg" alt="Soft cookies" loading="lazy">
+        </div>
+        <div class="wrap reveal">
+            <h2 class="display text-4xl md:text-5xl" style="font-weight: 800; color: var(--berry);">Order on TikTok</h2>
+            <p class="text-lg mt-4 max-w-xl leading-relaxed">
+                Lia's Kaffe is available through online order only. Open our TikTok at <strong>@lias.kaffe</strong>, choose your treats and send your order there.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <a href="https://www.tiktok.com/@lias.kaffe" target="_blank" rel="noopener" class="btn">Open @lias.kaffe</a>
+                <a href="/contact-us.html" class="btn btn-alt">Contact us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--ink); color: #f6dfe3; padding: 2rem 0;">
+        <div class="wrap flex flex-wrap items-center justify-between gap-4">
+            <div class="bg-white rounded-full px-4 py-2 inline-flex">
+                <img src="img/Lia-Kaffe-Logo.png" alt="Lia's Kaffe" class="h-8 object-contain">
+            </div>
+            <p class="text-sm">&copy; 2026 Lia's Kaffe, a lco. Corporation Venture.</p>
+        </div>
+    </footer>
+
+    <script>
+        const MENU = [
+            { name: 'KaffePies', items: [
+                ['Apple KaffePie', 15.99], ['Pecan KaffePie', 15.99], ['Keylime KaffePie', 15.99]] },
+            { name: 'Choux', items: [
+                ['Chocolate Cream Puff', 9.99], ['Sirap Bandung Cream Puff', 9.99], ['Matcha Cream Puff', 10.80]] },
+            { name: 'Bread', items: [
+                ['Polo Bun', 4.99], ['Shio Pan', 8.99], ['Croissant', 11.99]] },
+            { name: 'Brownies', items: [
+                ['Chocolate Brownies', 26.99], ['Walnut Brownies', 26.99]] },
+            { name: 'Signature Cakes', items: [
+                ['Classic Cheesecake', 31.99]] },
+            { name: 'Soft Cookies', items: [
+                ['Original Chocolate Chip', 10.00],
+                ['Original Chocolate Chip w/ Marshmallows', 11.00],
+                ['Double Chocolate w/ Oreo', 12.00],
+                ['Double Chocolate w/ Marshmallows', 12.00],
+                ['Red Velvet Cream Cheese (White Chocolate)', 14.50],
+                ['Matcha Strawberry', 16.99],
+                ['Large Stuffed S\u2019mores', 23.99],
+                ['Dubai Chocolate Kunafa Pistachio', 21.99, 'Original / Double Chocolate']] }
+        ];
+
+        document.getElementById('menu-list').innerHTML = MENU.map(c => `
+            <div class="cat reveal">
+                <div class="cat-head display"><span>${c.name}</span><span class="cur">MYR</span></div>
+                ${c.items.map(([n, p, note], i) => `
+                    <div class="row" style="--i:${i}"><span>${n}</span><span class="dots"></span><span class="price">${p.toFixed(2)}</span></div>
+                    ${note ? `<p class="note">${note}</p>` : ''}`).join('')}
+            </div>`).join('');
+    
+        // Vary the bobbing so the plates don't move in sync
+        document.querySelectorAll('.plate').forEach((p, i) => {
+            if (!p.style.getPropertyValue('--t')) p.style.setProperty('--t', (5 + (i * 1.3) % 3).toFixed(1) + 's');
+            p.style.setProperty('--dl', (-(i * 1.7) % 6).toFixed(1) + 's');
+        });
+
+        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Reveal on scroll
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Parallax: scattered plates drift at slightly different speeds while scrolling
+        if (!still) {
+            const sps = [...document.querySelectorAll('.sp')].map((el, i) => ({ el, k: (i % 2 ? 0.07 : -0.05) * (1 + (i % 3) * 0.4) }));
+            let ticking = false;
+            const par = () => {
+                sps.forEach(({ el, k }) => {
+                    const r = el.parentElement.getBoundingClientRect();
+                    el.style.transform = `translateY(${((r.top + r.height / 2 - innerHeight / 2) * k).toFixed(1)}px)`;
+                });
+                ticking = false;
+            };
+            addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(par); } }, { passive: true });
+            par();
+        }
+    </script>
+</body>
+
+</html>

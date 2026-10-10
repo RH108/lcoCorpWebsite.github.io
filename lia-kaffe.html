@@ -478,46 +478,59 @@
             return { name: tab, items };
         }
 
-        async function loadMenu() {
-            return Promise.all(TABS.map(loadTab));
-        }
-
-        document.getElementById('menu-list').innerHTML = MENU.map(c => `
+        function renderMenu(MENU) {
+            document.getElementById('menu-list').innerHTML = MENU.map(c => `
             <div class="cat reveal">
                 <div class="cat-head display"><span>${c.name}</span><span class="cur">MYR</span></div>
                 ${c.items.map(([n, p, note], i) => `
                     <div class="row" style="--i:${i}"><span>${n}</span><span class="dots"></span><span class="price">${p.toFixed(2)}</span></div>
                     ${note ? `<p class="note">${note}</p>` : ''}`).join('')}
             </div>`).join('');
-
-        // Vary the bobbing so the plates don't move in sync
-        document.querySelectorAll('.plate').forEach((p, i) => {
-            if (!p.style.getPropertyValue('--t')) p.style.setProperty('--t', (5 + (i * 1.3) % 3).toFixed(1) + 's');
-            p.style.setProperty('--dl', (-(i * 1.7) % 6).toFixed(1) + 's');
-        });
-
-        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Reveal on scroll
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-        }, { threshold: 0.15 });
-        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-        // Parallax: scattered plates drift at slightly different speeds while scrolling
-        if (!still) {
-            const sps = [...document.querySelectorAll('.sp')].map((el, i) => ({ el, k: (i % 2 ? 0.07 : -0.05) * (1 + (i % 3) * 0.4) }));
-            let ticking = false;
-            const par = () => {
-                sps.forEach(({ el, k }) => {
-                    const r = el.parentElement.getBoundingClientRect();
-                    el.style.transform = `translateY(${((r.top + r.height / 2 - innerHeight / 2) * k).toFixed(1)}px)`;
-                });
-                ticking = false;
-            };
-            addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(par); } }, { passive: true });
-            par();
         }
+
+        function setupEffects() {
+            // Vary the bobbing so the plates don't move in sync
+            document.querySelectorAll('.plate').forEach((p, i) => {
+                if (!p.style.getPropertyValue('--t')) p.style.setProperty('--t', (5 + (i * 1.3) % 3).toFixed(1) + 's');
+                p.style.setProperty('--dl', (-(i * 1.7) % 6).toFixed(1) + 's');
+            });
+
+            const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // Reveal on scroll (must run AFTER the menu is rendered so .cat.reveal exists)
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+            // Parallax
+            if (!still) {
+                const sps = [...document.querySelectorAll('.sp')].map((el, i) => ({ el, k: (i % 2 ? 0.07 : -0.05) * (1 + (i % 3) * 0.4) }));
+                let ticking = false;
+                const par = () => {
+                    sps.forEach(({ el, k }) => {
+                        const r = el.parentElement.getBoundingClientRect();
+                        el.style.transform = `translateY(${((r.top + r.height / 2 - innerHeight / 2) * k).toFixed(1)}px)`;
+                    });
+                    ticking = false;
+                };
+                addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(par); } }, { passive: true });
+                par();
+            }
+        }
+
+        async function init() {
+            try {
+                const MENU = await Promise.all(TABS.map(loadTab));
+                renderMenu(MENU);
+            } catch (err) {
+                console.error('Failed to load menu:', err);
+                document.getElementById('menu-list').innerHTML = '<p class="note">Menu unavailable right now.</p>';
+            }
+            setupEffects();
+        }
+
+        init();
     </script>
 </body>
 

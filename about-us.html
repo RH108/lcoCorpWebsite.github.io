@@ -23,7 +23,9 @@
             overflow-x: hidden;
         }
 
-        img { max-width: 100%; }
+        img {
+            max-width: 100%;
+        }
 
         @view-transition {
             navigation: auto;
@@ -127,9 +129,17 @@
             transform-origin: center;
         }
 
-        .menu-btn[aria-expanded="true"] .bar-1 { transform: translateY(6px) rotate(45deg); }
-        .menu-btn[aria-expanded="true"] .bar-2 { opacity: 0; }
-        .menu-btn[aria-expanded="true"] .bar-3 { transform: translateY(-6px) rotate(-45deg); }
+        .menu-btn[aria-expanded="true"] .bar-1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-btn[aria-expanded="true"] .bar-2 {
+            opacity: 0;
+        }
+
+        .menu-btn[aria-expanded="true"] .bar-3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
 
         .mobile-menu {
             max-height: 0;
@@ -178,34 +188,81 @@
             justify-content: center;
         }
 
-        .other-section > div { width: 100%; }
+        .other-section>div {
+            width: 100%;
+        }
 
         /* ---------- Animations ---------- */
         @keyframes heroLogoIn {
-            from { opacity: 0; transform: translateX(-40px) scale(0.96); }
-            to   { opacity: 1; transform: none; }
+            from {
+                opacity: 0;
+                transform: translateX(-40px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
         }
 
         @keyframes lineRise {
-            from { opacity: 0; transform: translateY(40px); clip-path: inset(0 0 100% 0); }
-            to   { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+                clip-path: inset(0 0 100% 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+                clip-path: inset(0 0 -20% 0);
+            }
         }
 
         @keyframes navDrop {
-            from { opacity: 0; transform: translateY(-100%); }
-            to   { opacity: 1; transform: none; }
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
         }
 
         @keyframes bob {
-            0%, 100% { transform: translateY(0); }
-            50%      { transform: translateY(8px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
         }
 
-        #navigation-bar { animation: navDrop 0.7s cubic-bezier(.2, .7, .2, 1) both; }
-        .logo-side { animation: heroLogoIn 0.9s cubic-bezier(.2, .7, .2, 1) 0.2s both; }
-        .slogan-line { display: block; animation: lineRise 0.9s cubic-bezier(.2, .7, .2, 1) both; }
-        .slogan-line.l1 { animation-delay: 0.45s; }
-        .slogan-line.l2 { animation-delay: 0.7s; }
+        #navigation-bar {
+            animation: navDrop 0.7s cubic-bezier(.2, .7, .2, 1) both;
+        }
+
+        .logo-side {
+            animation: heroLogoIn 0.9s cubic-bezier(.2, .7, .2, 1) 0.2s both;
+        }
+
+        .slogan-line {
+            display: block;
+            animation: lineRise 0.9s cubic-bezier(.2, .7, .2, 1) both;
+        }
+
+        .slogan-line.l1 {
+            animation-delay: 0.45s;
+        }
+
+        .slogan-line.l2 {
+            animation-delay: 0.7s;
+        }
 
         .scroll-cue {
             position: absolute;
@@ -225,8 +282,13 @@
             transition-delay: var(--d, 0ms);
         }
 
-        .reveal.from-left  { transform: translateX(-40px); }
-        .reveal.from-right { transform: translateX(40px); }
+        .reveal.from-left {
+            transform: translateX(-40px);
+        }
+
+        .reveal.from-right {
+            transform: translateX(40px);
+        }
 
         .reveal.in {
             opacity: 1;
@@ -240,7 +302,9 @@
             transition: clip-path 0.9s cubic-bezier(.2, .7, .2, 1);
         }
 
-        .title-wrap.in .title-pill { clip-path: inset(0 0 0 0 round 9999px); }
+        .title-wrap.in .title-pill {
+            clip-path: inset(0 0 0 0 round 9999px);
+        }
 
         /* Cards */
         .card {
@@ -255,12 +319,19 @@
                 background-color: rgba(255, 255, 255, 0.09);
             }
 
-            .venture:hover .arrow { transform: translateX(6px); }
+            .venture:hover .arrow {
+                transform: translateX(6px);
+            }
         }
 
-        .card:active { background-color: rgba(255, 255, 255, 0.09); }
+        .card:active {
+            background-color: rgba(255, 255, 255, 0.09);
+        }
 
-        .venture .arrow { display: inline-block; transition: transform 0.3s ease; }
+        .venture .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
 
         /* Timeline line draws down as it scrolls into view */
         .timeline-line {
@@ -269,21 +340,35 @@
             transition: transform 1.2s cubic-bezier(.2, .7, .2, 1);
         }
 
-        .timeline-wrap.in .timeline-line { transform: scaleY(1); }
+        .timeline-wrap.in .timeline-line {
+            transform: scaleY(1);
+        }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
+
+            *,
+            *::before,
+            *::after {
                 animation: none !important;
                 transition: none !important;
             }
 
-            .reveal, .title-pill, .timeline-line { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+            .reveal,
+            .title-pill,
+            .timeline-line {
+                opacity: 1 !important;
+                transform: none !important;
+                clip-path: none !important;
+            }
         }
 
         /* ---------- Tablet and below ---------- */
         @media (max-width: 1024px) {
+
             /* iOS ignores fixed backgrounds; scroll is smoother */
-            .hero-parallax { background-attachment: scroll; }
+            .hero-parallax {
+                background-attachment: scroll;
+            }
 
             #navigation-bar {
                 background: rgba(24, 24, 24, 0.92);
@@ -293,7 +378,9 @@
 
             /* Sideways reveals can feel jumpy on narrow screens; rise instead */
             .reveal.from-left:not(.in),
-            .reveal.from-right:not(.in) { transform: translateY(28px); }
+            .reveal.from-right:not(.in) {
+                transform: translateY(28px);
+            }
         }
 
         /* ---------- Phones ---------- */
@@ -305,9 +392,17 @@
                 padding: 0 1.25rem;
             }
 
-            .slogan-side { text-align: center; }
-            .slogan-text { font-size: 2.5rem; }
-            .slogan-highlight { font-size: 3.5rem; }
+            .slogan-side {
+                text-align: center;
+            }
+
+            .slogan-text {
+                font-size: 2.5rem;
+            }
+
+            .slogan-highlight {
+                font-size: 3.5rem;
+            }
 
             .other-section {
                 flex-direction: column;
@@ -317,8 +412,13 @@
         }
 
         @media (max-width: 380px) {
-            .slogan-text { font-size: 2rem; }
-            .slogan-highlight { font-size: 2.9rem; }
+            .slogan-text {
+                font-size: 2rem;
+            }
+
+            .slogan-highlight {
+                font-size: 2.9rem;
+            }
         }
     </style>
 </head>
@@ -349,8 +449,8 @@
             </div>
 
             <!-- Mobile menu button -->
-            <button id="menu-btn" class="menu-btn lg:hidden" type="button" aria-label="Open menu"
-                aria-expanded="false" aria-controls="mobile-menu">
+            <button id="menu-btn" class="menu-btn lg:hidden" type="button" aria-label="Open menu" aria-expanded="false"
+                aria-controls="mobile-menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" aria-hidden="true">
                     <line class="bar bar-1" x1="4" y1="6" x2="20" y2="6" />
@@ -375,8 +475,8 @@
     <section class="hero-parallax">
         <div class="hero-content">
             <div class="logo-side">
-                <img src="img/company_logo.webp" alt="lco. Logo" class="h-14 sm:h-16 md:h-24 lg:h-32 w-auto object-contain"
-                    onerror="this.style.display='none'">
+                <img src="img/company_logo.webp" alt="lco. Logo"
+                    class="h-14 sm:h-16 md:h-24 lg:h-32 w-auto object-contain" onerror="this.style.display='none'">
             </div>
             <div class="slogan-side">
                 <h1 class="slogan-text">
@@ -385,8 +485,8 @@
                 </h1>
             </div>
         </div>
-        <svg class="scroll-cue" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg class="scroll-cue" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6 9l6 6 6-6" />
         </svg>
     </section>
@@ -396,9 +496,11 @@
         <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-8 md:gap-12">
             <div class="lg:w-7/12 w-full">
                 <div class="max-w-4xl">
-                    <div class="title-wrap"><h2
-                        class="title-pill text-2xl md:text-4xl font-black uppercase mb-6 md:mb-8 text-white bg-gray-600 px-4 py-2 rounded-full flex items-center shadow-lg">
-                        The Mission</h2></div>
+                    <div class="title-wrap">
+                        <h2
+                            class="title-pill text-2xl md:text-4xl font-black uppercase mb-6 md:mb-8 text-white bg-gray-600 px-4 py-2 rounded-full flex items-center shadow-lg">
+                            The Mission</h2>
+                    </div>
 
                     <p class="reveal text-lg md:text-xl text-gray-300 leading-relaxed mb-6 
               first-letter:text-[3.8rem] md:first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
@@ -418,7 +520,8 @@
                             class="venture card reveal block p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5"
                             style="--d:150ms">
                             <div class="flex items-center gap-3 mb-3">
-                                <img src="img/Lia-Kaffe-Logo.png" alt="Lia's Kaffe logo" class="h-12 md:h-14 w-auto object-contain">
+                                <img src="img/Lia-Kaffe-Logo.png" alt="Lia's Kaffe logo"
+                                    class="h-12 md:h-14 w-auto object-contain">
                             </div>
                             <h3 class="font-bold text-lg md:text-xl mb-2">Lia's Kaffe</h3>
                             <p class="text-gray-400">Our cafe venture. Visit the Lia's Kaffe page to see what's
@@ -459,9 +562,11 @@
     <!-- ===== Past achievements ===== -->
     <section id="past-section" class="other-section" style="min-height: auto;">
         <div class="max-w-5xl w-full">
-            <div class="title-wrap"><h2
-                class="title-pill text-2xl md:text-4xl font-black uppercase mb-6 md:mb-10 text-white bg-gray-600 px-4 py-2 rounded-full flex items-center shadow-lg">
-                Past Achievements</h2></div>
+            <div class="title-wrap">
+                <h2
+                    class="title-pill text-2xl md:text-4xl font-black uppercase mb-6 md:mb-10 text-white bg-gray-600 px-4 py-2 rounded-full flex items-center shadow-lg">
+                    Past Achievements</h2>
+            </div>
 
             <p class="reveal text-base md:text-lg text-gray-400 leading-relaxed mb-8 md:mb-10 max-w-3xl">
                 Before becoming a conglomerate, lco. Corporation built SihatBot, a healthcare technology venture.
@@ -472,13 +577,16 @@
                 <div class="timeline-line absolute left-[6px] md:left-[9px] top-2 bottom-2 w-px bg-white/20"></div>
 
                 <div class="reveal relative mb-5 md:mb-6" style="--d:100ms">
-                    <span class="absolute -left-7 md:-left-10 top-2 w-[13px] h-[13px] md:w-[19px] md:h-[19px] rounded-full bg-white border-[3px] md:border-4 border-[#181818]"></span>
+                    <span
+                        class="absolute -left-7 md:-left-10 top-2 w-[13px] h-[13px] md:w-[19px] md:h-[19px] rounded-full bg-white border-[3px] md:border-4 border-[#181818]"></span>
                     <div class="card p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5">
                         <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                            <img src="img/sihatbot-logo.png" alt="SihatBot logo" class="shrink-0 h-12 md:h-14 w-auto max-w-[160px] object-contain self-start sm:self-center">
+                            <img src="img/sihatbot-logo.png" alt="SihatBot logo"
+                                class="shrink-0 h-12 md:h-14 w-auto max-w-[160px] object-contain self-start sm:self-center">
                             <div>
                                 <h3 class="font-bold text-lg md:text-xl mb-1">SihatBot</h3>
-                                <p class="text-gray-400">A telemedicine-focused healthcare venture, built to give consumers
+                                <p class="text-gray-400">A telemedicine-focused healthcare venture, built to give
+                                    consumers
                                     on-demand access to care. Sold off; lco. no longer operates in healthcare.</p>
                             </div>
                         </div>
@@ -486,7 +594,8 @@
                 </div>
 
                 <div class="reveal relative" style="--d:200ms">
-                    <span class="absolute -left-7 md:-left-10 top-2 w-[13px] h-[13px] md:w-[19px] md:h-[19px] rounded-full bg-white border-[3px] md:border-4 border-[#181818]"></span>
+                    <span
+                        class="absolute -left-7 md:-left-10 top-2 w-[13px] h-[13px] md:w-[19px] md:h-[19px] rounded-full bg-white border-[3px] md:border-4 border-[#181818]"></span>
                     <div class="card p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5">
                         <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                             <img src="img/seameo_ssys.svg" alt="SEAMEO SSYS" class="shrink-0 self-start sm:self-center"
@@ -494,7 +603,9 @@
                             <div>
                                 <h3 class="font-bold text-lg md:text-xl mb-1">14th SEAMEO SSYS Congress</h3>
                                 <p class="text-gray-400">3x Gold, 3x Silver, 1x Bronze, $1000 Seed Grant</p>
-                                <p class="text-gray-500 text-sm mt-1">Earned with SihatBot, supported by the <i>Southeast Asian Ministers of Education Organization</i></p>
+                                <p class="text-gray-500 text-sm mt-1">Earned with SihatBot, supported by the
+                                    <i>Southeast Asian Ministers of Education Organization</i>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -520,43 +631,91 @@
 
             <div class="lg:w-7/12 w-full order-1 lg:order-2">
                 <div class="max-w-4xl">
-                    <div class="title-wrap"><h2
-                        class="title-pill text-2xl md:text-4xl font-black uppercase mb-6 md:mb-8 text-white bg-gray-600 px-4 py-2 rounded-full flex items-center shadow-lg">
-                        Our Leadership</h2></div>
+                    <div class="title-wrap">
+                        <h2
+                            class="title-pill text-2xl md:text-4xl font-black uppercase mb-6 md:mb-8 text-white bg-gray-600 px-4 py-2 rounded-full flex items-center shadow-lg">
+                            Our Leadership</h2>
+                    </div>
 
                     <p class="reveal text-lg md:text-xl text-gray-300 leading-relaxed mb-6 
-              first-letter:text-[3.8rem] md:first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
-              first-letter:mr-1 first-letter:float-left first-letter:leading-[0.7] ">
+          first-letter:text-[3.8rem] md:first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+          first-letter:mr-1 first-letter:float-left first-letter:leading-[0.7] ">
                         Our core management leads with purpose—guiding strategy, aligning teams,
                         and shaping the future of the company. We focus on operational excellence, sustainable
                         innovation, and driving impact across every initiative we undertake.
                     </p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-                        <div class="card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5" style="--d:0ms">
-                            <h3 class="font-bold text-lg md:text-xl mb-1 md:mb-2">Technical Founder & CEO</h3>
-                            <p class="text-gray-400 break-words">Rayyan Harith Ahmad Rozley</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
+
+                        <div class="card reveal p-4 md:p-5 border border-white/10 rounded-2xl bg-white/5 flex items-center gap-4"
+                            style="--d:0ms">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQHvkYWHjiS-TQ/profile-displayphoto-scale_400_400/B56Z9l.l4HHUAg-/0/1784122335523?e=1793232000&v=beta&t=y9Nifl7FRn4nOnvXrem1WEOfWpj8n8NIEH_Tbsmfcrw"
+                                alt="Rayyan Harith Ahmad Rozley"
+                                class="w-20 h-20 xl:w-24 xl:h-24 rounded-full object-cover shrink-0 border-2 border-white/20 bg-gray-700 shadow-lg"
+                                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%23374151%22/><circle cx=%2232%22 cy=%2224%22 r=%2212%22 fill=%22%239ca3af%22/><path d=%22M8 64c0-13 10-22 24-22s24 9 24 22%22 fill=%22%239ca3af%22/></svg>';">
+                            <div class="min-w-0">
+                                <h3 class="font-bold text-base md:text-lg mb-1">Technical Founder & CEO</h3>
+                                <p class="text-gray-400 text-sm md:text-base break-words">Rayyan Harith Ahmad Rozley</p>
+                            </div>
                         </div>
-                        <div class="card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5" style="--d:80ms">
-                            <h3 class="font-bold text-lg md:text-xl mb-1 md:mb-2">Strategic Chairperson</h3>
-                            <p class="text-gray-400 break-words">Luekesch Mogan</p>
+
+                        <div class="card reveal p-4 md:p-5 border border-white/10 rounded-2xl bg-white/5 flex items-center gap-4"
+                            style="--d:80ms">
+                            <img src="https://media.licdn.com/dms/image/v2/D4E03AQG0eCu6vOozsQ/profile-displayphoto-shrink_400_400/B4EZZnbLiRHMAk-/0/1745491904293?e=1793232000&v=beta&t=ErjkcWuhVH-CZgc0jCRkn9YrSypH0ZNTBh_75LerJWQ" alt="Luekesch Mogan"
+                                class="w-20 h-20 xl:w-24 xl:h-24 rounded-full object-cover shrink-0 border-2 border-white/20 bg-gray-700 shadow-lg"
+                                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%23374151%22/><circle cx=%2232%22 cy=%2224%22 r=%2212%22 fill=%22%239ca3af%22/><path d=%22M8 64c0-13 10-22 24-22s24 9 24 22%22 fill=%22%239ca3af%22/></svg>';">
+                            <div class="min-w-0">
+                                <h3 class="font-bold text-base md:text-lg mb-1">Strategic Chairperson</h3>
+                                <p class="text-gray-400 text-sm md:text-base break-words">Luekesch Mogan</p>
+                            </div>
                         </div>
-                        <div class="card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5" style="--d:160ms">
-                            <h3 class="font-bold text-lg md:text-xl mb-1 md:mb-2">VP, Business Operations</h3>
-                            <p class="text-gray-400 break-words">Radin Mohamad Adam Hazlam</p>
+
+                        <div class="card reveal p-4 md:p-5 border border-white/10 rounded-2xl bg-white/5 flex items-center gap-4"
+                            style="--d:160ms">
+                            <img src="img/team/adam.jpg" alt="Radin Mohamad Adam Hazlam"
+                                class="w-20 h-20 xl:w-24 xl:h-24 rounded-full object-cover shrink-0 border-2 border-white/20 bg-gray-700 shadow-lg"
+                                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%23374151%22/><circle cx=%2232%22 cy=%2224%22 r=%2212%22 fill=%22%239ca3af%22/><path d=%22M8 64c0-13 10-22 24-22s24 9 24 22%22 fill=%22%239ca3af%22/></svg>';">
+                            <div class="min-w-0">
+                                <h3 class="font-bold text-base md:text-lg mb-1">VP, Business Operations</h3>
+                                <p class="text-gray-400 text-sm md:text-base break-words">Radin Mohamad Adam Hazlam</p>
+                            </div>
                         </div>
-                        <div class="card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5" style="--d:240ms">
-                            <h3 class="font-bold text-lg md:text-xl mb-1 md:mb-2">Vice President, Paralegal</h3>
-                            <p class="text-gray-400 break-words">Joshua Soh</p>
+
+                        <div class="card reveal p-4 md:p-5 border border-white/10 rounded-2xl bg-white/5 flex items-center gap-4"
+                            style="--d:240ms">
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQHWpxEqsZGUjg/profile-displayphoto-scale_400_400/B56aASiB5UIcAg-/0/1787017307131?e=1793232000&v=beta&t=yDZQeytchurIVkn6Kd2M14uFK0nEdNP-rjYzBGUMWsM"
+                                alt="Joshua Soh"
+                                class="w-20 h-20 xl:w-24 xl:h-24 rounded-full object-cover shrink-0 border-2 border-white/20 bg-gray-700 shadow-lg"
+                                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%23374151%22/><circle cx=%2232%22 cy=%2224%22 r=%2212%22 fill=%22%239ca3af%22/><path d=%22M8 64c0-13 10-22 24-22s24 9 24 22%22 fill=%22%239ca3af%22/></svg>';">
+                            <div class="min-w-0">
+                                <h3 class="font-bold text-base md:text-lg mb-1">Vice President, Paralegal</h3>
+                                <p class="text-gray-400 text-sm md:text-base break-words">Joshua Soh</p>
+                            </div>
                         </div>
-                        <div class="card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5" style="--d:320ms">
-                            <h3 class="font-bold text-lg md:text-xl mb-1 md:mb-2">Vice President, Finance</h3>
-                            <p class="text-gray-400 break-words">Muhammad Azlan Jay bin Abdullah</p>
+
+                        <div class="card reveal p-4 md:p-5 border border-white/10 rounded-2xl bg-white/5 flex items-center gap-4"
+                            style="--d:320ms">
+                            <img src="img/azlan-jay.png" alt="Muhammad Azlan Jay bin Abdullah"
+                                class="w-20 h-20 xl:w-24 xl:h-24 rounded-full object-cover shrink-0 border-2 border-white/20 bg-gray-700 shadow-lg"
+                                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%23374151%22/><circle cx=%2232%22 cy=%2224%22 r=%2212%22 fill=%22%239ca3af%22/><path d=%22M8 64c0-13 10-22 24-22s24 9 24 22%22 fill=%22%239ca3af%22/></svg>';">
+                            <div class="min-w-0">
+                                <h3 class="font-bold text-base md:text-lg mb-1">Vice President, Finance</h3>
+                                <p class="text-gray-400 text-sm md:text-base break-words">Muhammad Azlan Jay bin
+                                    Abdullah</p>
+                            </div>
                         </div>
-                        <div class="card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5" style="--d:400ms">
-                            <h3 class="font-bold text-lg md:text-xl mb-1 md:mb-2">Outreach Director</h3>
-                            <p class="text-gray-400 break-words">Muhammad Al Fateh Tarkhan</p>
+
+                        <div class="card reveal p-4 md:p-5 border border-white/10 rounded-2xl bg-white/5 flex items-center gap-4"
+                            style="--d:400ms">
+                            <img src="img/team/fateh.jpg" alt="Muhammad Al Fateh Tarkhan"
+                                class="w-20 h-20 xl:w-24 xl:h-24 rounded-full object-cover shrink-0 border-2 border-white/20 bg-gray-700 shadow-lg"
+                                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%23374151%22/><circle cx=%2232%22 cy=%2224%22 r=%2212%22 fill=%22%239ca3af%22/><path d=%22M8 64c0-13 10-22 24-22s24 9 24 22%22 fill=%22%239ca3af%22/></svg>';">
+                            <div class="min-w-0">
+                                <h3 class="font-bold text-base md:text-lg mb-1">Outreach Director</h3>
+                                <p class="text-gray-400 text-sm md:text-base break-words">Muhammad Al Fateh Tarkhan</p>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

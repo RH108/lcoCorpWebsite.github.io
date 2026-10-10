@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Lia's Kaffe — Pies, Cakes &amp; Cookies | lco. Corporation</title>
     <meta name="description"
         content="Lia's Kaffe bakes KaffePies, cream puffs, bread, brownies, cheesecake and soft cookies. Order online through TikTok @lias.kaffe.">
@@ -23,6 +23,8 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 5rem;
+            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -49,6 +51,99 @@
             top: 0;
             width: 100%;
             z-index: 50;
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        /* Mobile menu button */
+        .menu-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            margin-right: -8px;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-btn:focus-visible {
+            outline: 3px solid var(--marigold);
+            outline-offset: 2px;
+        }
+
+        .menu-btn .bar {
+            transition: transform .3s ease, opacity .2s ease;
+            transform-origin: center;
+        }
+
+        .menu-btn[aria-expanded="true"] .bar-1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-btn[aria-expanded="true"] .bar-2 {
+            opacity: 0;
+        }
+
+        .menu-btn[aria-expanded="true"] .bar-3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Mobile menu panel (slides open below the bar) */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            visibility: hidden;
+            background: var(--berry-deep);
+            transition: max-height .35s ease, visibility 0s linear .35s;
+        }
+
+        .mobile-menu.open {
+            max-height: 320px;
+            visibility: visible;
+            transition: max-height .35s ease, visibility 0s;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: .95rem 1.25rem;
+            font-size: .95rem;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: #fff;
+            border-top: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        .mobile-menu a:active {
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .mobile-menu a.pill {
+            display: inline-block;
+            margin: .75rem 1.25rem 1rem;
+            padding: .7rem 1.4rem;
+            border: 0;
+            border-radius: 999px;
+            background: var(--marigold);
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .mobile-menu a:focus-visible {
+            outline: 3px solid var(--marigold);
+            outline-offset: -3px;
+        }
+
+        /* Below desktop the bar fades to transparent over the cream page, which would hide
+           the white menu icon, so use a solid berry bar instead */
+        @media (max-width: 1023px) {
+            #navigation-bar {
+                background: var(--berry);
+                box-shadow: 0 2px 14px rgba(58, 22, 32, .18);
+            }
         }
 
         section {
@@ -320,8 +415,8 @@
 </head>
 
 <body>
-    <nav id="navigation-bar">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+    <nav id="navigation-bar" aria-label="Main">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-6 flex items-center justify-between">
             <div class="flex items-center space-x-4 md:space-x-12">
                 <div class="bg-white px-3 py-1 md:px-4 md:py-2 rounded-full flex items-center shadow-lg">
                     <img src="img/Lia-Kaffe-Logo.png" alt="Lia's Kaffe Logo" class="h-6 md:h-10 object-contain">
@@ -334,9 +429,28 @@
                         Us</a>
                 </div>
             </div>
-            <div class="flex items-center">
-                <img src="img/company_logo.webp" alt="Company Logo" class="h-8 md:h-12 w-auto object-contain">
+            <div class="flex items-center gap-2 md:gap-3">
+                <img src="img/company_logo.webp" alt="Company Logo" class="h-7 md:h-12 w-auto object-contain">
+                <!-- Mobile menu button -->
+                <button id="menu-btn" class="menu-btn lg:hidden" type="button" aria-label="Open menu"
+                    aria-expanded="false" aria-controls="mobile-menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <line class="bar bar-1" x1="4" y1="6" x2="20" y2="6" />
+                        <line class="bar bar-2" x1="4" y1="12" x2="20" y2="12" />
+                        <line class="bar bar-3" x1="4" y1="18" x2="20" y2="18" />
+                    </svg>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile menu panel -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden">
+            <a href="/index.html" class="font-bold" aria-current="page">Home</a>
+            <a href="/about-us.html">lco. Corporation</a>
+            <a href="/contact-us.html">Contact Us</a>
+            <a href="https://www.tiktok.com/@lias.kaffe" target="_blank" rel="noopener" class="pill">Order on
+                TikTok</a>
         </div>
     </nav>
 
@@ -345,8 +459,8 @@
         <div class="saucer" style="width: 62rem; height: 20rem; right: -14rem; bottom: 1rem;"></div>
         <div class="wrap grid md:grid-cols-2 gap-10 items-center">
             <div>
-                <h1 style="--e:.05s" class="rise display text-5xl md:text-6xl lg:text-7xl leading-[1.02]"
-                    style="font-weight: 800; color: var(--berry);">
+                <h1 style="--e:.05s; font-weight: 800; color: var(--berry);"
+                    class="rise display text-5xl md:text-6xl lg:text-7xl leading-[1.02]">
                     Pie, cake and a good cup of coffee.
                 </h1>
                 <p style="--e:.2s" class="rise text-lg md:text-xl mt-6 leading-relaxed max-w-md">
@@ -518,6 +632,32 @@
                 par();
             }
         }
+
+        // Mobile menu
+        function setupMenu() {
+            const btn = document.getElementById('menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+
+            const setOpen = (open) => {
+                menu.classList.toggle('open', open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            };
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setOpen(!menu.classList.contains('open'));
+            });
+            // Close after choosing a link, tapping elsewhere, pressing Escape, or resizing to desktop
+            menu.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+            document.addEventListener('click', (e) => { if (!menu.contains(e.target)) setOpen(false); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { setOpen(false); btn.focus(); } });
+            addEventListener('resize', () => { if (innerWidth >= 1024) setOpen(false); });
+        }
+
+        // Set the menu up first so it works even if the price list fails to load
+        setupMenu();
 
         async function init() {
             try {

@@ -3,12 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>lco. Corporation</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: 72px;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -18,18 +23,90 @@
             overflow-x: hidden;
         }
 
+        img { max-width: 100%; }
+
         @view-transition {
             navigation: auto;
         }
 
+        /* ---------- Navigation ---------- */
         #navigation-bar {
             background: linear-gradient(90deg, #2c2a2a 25%, transparent);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 50;
+            padding-top: env(safe-area-inset-top, 0px);
         }
 
+        .menu-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            margin-right: -8px;
+            border: 0;
+            border-radius: 9999px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-btn:focus-visible,
+        .mobile-menu a:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .menu-btn .bar {
+            transition: transform 0.3s ease, opacity 0.2s ease;
+            transform-origin: center;
+        }
+
+        .menu-btn[aria-expanded="true"] .bar-1 { transform: translateY(6px) rotate(45deg); }
+        .menu-btn[aria-expanded="true"] .bar-2 { opacity: 0; }
+        .menu-btn[aria-expanded="true"] .bar-3 { transform: translateY(-6px) rotate(-45deg); }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            visibility: hidden;
+            background: #1f1d1d;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: max-height 0.35s ease, visibility 0s linear 0.35s;
+        }
+
+        .mobile-menu.open {
+            max-height: 360px;
+            visibility: visible;
+            transition: max-height 0.35s ease, visibility 0s;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 0.9rem 1.25rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .mobile-menu a:active { background: rgba(255, 255, 255, 0.08); }
+
+        .mobile-menu a.pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin: 0.5rem 1.25rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 9999px;
+            background: white;
+            color: #111;
+        }
+
+        /* ---------- Section ---------- */
         .other-section {
             min-height: 100vh;
             padding: 100px 5%;
@@ -41,20 +118,110 @@
             justify-content: center;
         }
 
+        .other-section > div { width: 100%; }
+
+        /* ---------- Animations ---------- */
+        @keyframes navDrop {
+            from { opacity: 0; transform: translateY(-100%); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        #navigation-bar { animation: navDrop 0.7s cubic-bezier(.2, .7, .2, 1) both; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms),
+                        transform 0.8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms);
+        }
+
+        .reveal.from-right { transform: translateX(40px); }
+
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Title pill wipes in from the left (the wrapper is observed, since a fully clipped element never counts as visible) */
+        .title-pill {
+            clip-path: inset(0 100% 0 0 round 9999px);
+            transition: clip-path 0.9s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .title-wrap.in .title-pill { clip-path: inset(0 0 0 0 round 9999px); }
+
+        /* Contact cards: hover lift uses `translate`, so it never fights the reveal's `transform` */
+        .contact-card {
+            transition: translate 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+            display: block;
+        }
+
+        .contact-card.reveal {
+            transition: opacity 0.8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms),
+                        transform 0.8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms),
+                        translate 0.3s ease,
+                        border-color 0.3s ease,
+                        background-color 0.3s ease;
+        }
+
+        .contact-card:active { background-color: rgba(255, 255, 255, 0.1); }
+
+        .contact-card .icon { transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1); }
+
+        @media (hover: hover) {
+            .contact-card:hover {
+                translate: 0 -4px;
+                border-color: rgba(255, 255, 255, 0.3);
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .contact-card:hover .icon { transform: scale(1.2) rotate(-8deg); }
+        }
+
+        .contact-card:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .reveal, .title-pill { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+        }
+
+        /* ---------- Tablet and below ---------- */
+        @media (max-width: 1024px) {
+            #navigation-bar {
+                background: rgba(24, 24, 24, 0.92);
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+            }
+
+            .reveal.from-right:not(.in) { transform: translateY(28px); }
+        }
+
+        /* ---------- Phones ---------- */
         @media (max-width: 768px) {
             .other-section {
                 flex-direction: column;
-                padding: 100px 10%;
+                min-height: 100svh;
+                padding: 96px 6% 64px;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 
 <body>
-    <nav id="navigation-bar">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
+    <nav id="navigation-bar" aria-label="Main">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-2 md:py-6 flex items-center justify-between">
             <div class="flex items-center space-x-4 md:space-x-12">
-                <img src="img/company_logo.webp" alt="Sihatbot Logo" class="h-6 md:h-10 object-contain">
+                <a href="/lia-kaffe.html" aria-label="lco. home">
+                    <img src="img/company_logo.webp" alt="lco. Logo" class="h-7 md:h-10 object-contain">
+                </a>
 
                 <div class="hidden lg:flex items-center space-x-8 text-sm tracking-wide uppercase">
                     <a href="/lia-kaffe.html" class="nav-link hover:text-gray-300 transition text-white">Home</a>
@@ -65,8 +232,7 @@
                         <a href="/lco-fc.html"
                             class="nav-link hover:text-gray-600 transition text-gray-900 flex items-center space-x-1.5">
                             <span>lco.fc</span>
-                            <img src="img/ball-football.svg" alt="Football"
-                                class="h-4 w-4 object-contain">
+                            <img src="img/ball-football.svg" alt="Football" class="h-4 w-4 object-contain">
                         </a>
                     </div>
 
@@ -74,73 +240,155 @@
                         class="nav-link hover:text-gray-300 transition text-white font-bold">Contact Us</a>
                 </div>
             </div>
+
+            <!-- Mobile menu button -->
+            <button id="menu-btn" class="menu-btn lg:hidden" type="button" aria-label="Open menu"
+                aria-expanded="false" aria-controls="mobile-menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" aria-hidden="true">
+                    <line class="bar bar-1" x1="4" y1="6" x2="20" y2="6" />
+                    <line class="bar bar-2" x1="4" y1="12" x2="20" y2="12" />
+                    <line class="bar bar-3" x1="4" y1="18" x2="20" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile menu panel -->
+        <div id="mobile-menu" class="mobile-menu lg:hidden">
+            <a href="/lia-kaffe.html">Home</a>
+            <a href="/about-us.html">lco. Corporation</a>
+            <a href="/lco-fc.html" class="pill">
+                <span>lco.fc</span>
+                <img src="img/ball-football.svg" alt="" class="h-4 w-4 object-contain">
+            </a>
+            <a href="/contact-us.html" class="font-bold" aria-current="page">Contact Us</a>
         </div>
     </nav>
 
     <section id="contact-section" class="other-section pb-1">
-        <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-12">
-            <div class="lg:w-7/12">
+        <div class="max-w-7xl flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+            <div class="lg:w-7/12 w-full">
                 <div class="max-w-4xl">
-                    <h2
-                        class="text-4xl font-black uppercase mb-8 text-white bg-gray-600 px-3 py-1 md:px-4 md:py-2 rounded-full flex items-center shadow-lg">
-                        Contact Us</h2>
+                    <div class="title-wrap"><h2
+                        class="title-pill text-2xl md:text-4xl font-black uppercase mb-6 md:mb-8 text-white bg-gray-600 px-4 py-2 rounded-full flex items-center shadow-lg">
+                        Contact Us</h2></div>
 
-                    <p class="text-xl text-gray-300 leading-relaxed mb-6 
-              first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
+                    <p class="reveal text-lg md:text-xl text-gray-300 leading-relaxed mb-6 
+              first-letter:text-[3.8rem] md:first-letter:text-[5.2rem] first-letter:font-black first-letter:text-white 
               first-letter:mr-2 first-letter:float-left first-letter:leading-[0.7] first-letter:font-serif">
                         Have a question or need assistance with our services? Our dedicated team is just a message away
                         and ready to provide the support you deserve. Contact us for any inquiries.</p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
+                        <div class="contact-card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5"
+                            style="--d:150ms">
                             <div class="flex items-center gap-3 mb-2">
-                                <img src="img/instagram.svg" alt="Instagram" class="w-6 h-6 object-contain">
-                                <h3 class="font-bold text-xl">Instagram</h3>
+                                <img src="img/instagram.svg" alt="" class="icon w-6 h-6 object-contain">
+                                <h3 class="font-bold text-lg md:text-xl">Instagram</h3>
                             </div>
-                            <p class="text-gray-400">@lco.corporation</p>
+                            <p class="text-gray-400 break-words">@lco.corporation</p>
                         </div>
 
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                        <div class="contact-card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5"
+                            style="--d:240ms">
                             <div class="flex items-center gap-3 mb-2">
-                                <img src="img/linkedin.svg" alt="LinkedIn" class="w-6 h-6 object-contain">
-                                <h3 class="font-bold text-xl">LinkedIn</h3>
+                                <img src="img/linkedin.svg" alt="" class="icon w-6 h-6 object-contain">
+                                <h3 class="font-bold text-lg md:text-xl">LinkedIn</h3>
                             </div>
-                            <p class="text-gray-400">lco. Corporation</p>
+                            <p class="text-gray-400 break-words">lco. Corporation</p>
                         </div>
 
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                        <div class="contact-card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5"
+                            style="--d:330ms">
                             <div class="flex items-center gap-3 mb-2">
-                                <img src="img/tik_tok.svg" alt="TikTok" class="w-6 h-6 object-contain">
-                                <h3 class="font-bold text-xl">TikTok</h3>
+                                <img src="img/tik_tok.svg" alt="" class="icon w-6 h-6 object-contain">
+                                <h3 class="font-bold text-lg md:text-xl">TikTok</h3>
                             </div>
-                            <p class="text-gray-400">@lco.corporation</p>
+                            <p class="text-gray-400 break-words">@lco.corporation</p>
                         </div>
 
-                        <div class="p-6 border border-white/10 rounded-2xl bg-white/5 transition-all hover:bg-white/10">
+                        <a href="mailto:corporate@lcocorp.com"
+                            class="contact-card reveal p-5 md:p-6 border border-white/10 rounded-2xl bg-white/5"
+                            style="--d:420ms">
                             <div class="flex items-center gap-3 mb-2">
-                                <img src="img/google.svg" alt="Email" class="w-6 h-6 object-contain">
-                                <h3 class="font-bold text-xl">Google Mail</h3>
+                                <img src="img/google.svg" alt="" class="icon w-6 h-6 object-contain">
+                                <h3 class="font-bold text-lg md:text-xl">Google Mail</h3>
                             </div>
-                            <p class="text-gray-400">corporate@lcocorp.com</p>
-                        </div>
+                            <p class="text-gray-400 break-words">corporate@lcocorp.com</p>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="lg:w-5/12 w-full">
+            <div class="lg:w-5/12 w-full reveal from-right" style="--d:200ms">
                 <div class="relative group">
                     <div
                         class="absolute -inset-1  rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
                     </div>
                     <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl">
                         <img src="https://jpnmelaka.moe.gov.my/images/attachstore/bahan_muat_naik/SEKTOR_PENGURUSAN_SEKOLAH/UPS/LAPORAN_KEJAYAAN/31_KYS.JPG"
-                            alt="Healthcare Innovation"
-                            class="w-full h-[425px] object-cover opacity-80 hover:scale-105 transition-transform duration-700">
+                            alt="lco. Corporation team"
+                            class="w-full h-[240px] sm:h-[320px] md:h-[425px] object-cover opacity-80 hover:scale-105 transition-transform duration-700">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        // Reveal elements as they scroll into view (items already on screen play as a load sequence)
+        (function () {
+            var targets = document.querySelectorAll('.reveal, .title-wrap');
+
+            if (!('IntersectionObserver' in window)) {
+                targets.forEach(function (el) { el.classList.add('in'); });
+                return;
+            }
+
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
+
+            targets.forEach(function (el) { io.observe(el); });
+        })();
+
+        // Mobile menu
+        (function () {
+            var btn = document.getElementById('menu-btn');
+            var menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+
+            function setOpen(open) {
+                menu.classList.toggle('open', open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            }
+
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                setOpen(!menu.classList.contains('open'));
+            });
+
+            // Close after choosing a link, tapping elsewhere, pressing Escape, or resizing to desktop
+            menu.addEventListener('click', function (e) {
+                if (e.target.closest('a')) setOpen(false);
+            });
+            document.addEventListener('click', function (e) {
+                if (!menu.contains(e.target)) setOpen(false);
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') { setOpen(false); btn.focus(); }
+            });
+            window.addEventListener('resize', function () {
+                if (window.innerWidth >= 1024) setOpen(false);
+            });
+        })();
+    </script>
 </body>
 
 </html>

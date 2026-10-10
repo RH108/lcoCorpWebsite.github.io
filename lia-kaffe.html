@@ -459,57 +459,28 @@
     </footer>
 
     <script>
-        const MENU = [
-            {
-                name: 'KaffePies',
-                items: [
-                    ['Apple KaffePie', 9.99],
-                    ['Pecan KaffePie', 11.99],
-                    ['Keylime KaffePie', 9.99]
-                ]
-            },
-            {
-                name: 'Choux',
-                items: [
-                    ['Chocolate Cream Puff', 7.99],
-                    ['Sirap Bandung Cream Puff', 7.99],
-                    ['Matcha Cream Puff', 8.99]
-                ]
-            },
-            {
-                name: 'Bread',
-                items: [
-                    ['Polo Bun', 4.99],
-                    ['Shio Pan', 5.99],
-                    ['Croissant', 7.99]
-                ]
-            },
-            {
-                name: 'Brownies',
-                items: [
-                    ['Chocolate Brownies', 7.99],
-                    ['Walnut Brownies', 8.99]
-                ]
-            },
-            {
-                name: 'Signature Cakes',
-                items: [
-                    ['Classic Cheesecake', 14.99]
-                ]
-            },
-            {
-                name: 'Soft Cookies',
-                items: [
-                    ['Original Chocolate Chip', 5.99],
-                    ['Original Chocolate Chip w/ Marshmallows', 6.99],
-                    ['Double Chocolate w/ Oreo', 6.99],
-                    ['Double Chocolate w/ Marshmallows', 6.99],
-                    ['Red Velvet Cream Cheese (White Chocolate)', 7.99],
-                    ['Matcha Strawberry', 8.99],
-                    ['Dubai Chocolate Kunafa Pistachio', 11.99, 'Original / Double Chocolate']
-                ]
-            }
-        ];
+        const SHEET_ID = '1rlIsVLs0dg0gF1sr__LmOMktxOQ3VBSzykzYeodRECY';
+        const TABS = ['KaffePies', 'Choux', 'Bread', 'Brownies', 'Signature Cakes', 'Soft Cookies'];
+
+        async function loadTab(tab) {
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(tab)}`;
+            const text = await (await fetch(url)).text();
+            const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+
+            const items = json.table.rows
+                .map(r => {
+                    const c = i => (r.c[i]?.v ?? '').toString().trim();
+                    return { name: c(0), options: c(1), price: parseFloat(c(2)) };
+                })
+                .filter(r => r.name && !isNaN(r.price))
+                .map(r => r.options ? [r.name, r.price, r.options] : [r.name, r.price]);
+
+            return { name: tab, items };
+        }
+
+        async function loadMenu() {
+            return Promise.all(TABS.map(loadTab));
+        }
 
         document.getElementById('menu-list').innerHTML = MENU.map(c => `
             <div class="cat reveal">

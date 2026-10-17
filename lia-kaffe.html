@@ -277,10 +277,255 @@
             font-variant-numeric: tabular-nums;
         }
 
+        .row .ctl {
+            flex: none;
+            align-self: center;
+        }
+
         .note {
             font-size: .85rem;
             opacity: .7;
             margin: -.1rem 0 0;
+        }
+
+        /* ---------- Cart ---------- */
+        .add-btn {
+            flex: none;
+            margin-left: .4rem;
+            border: 0;
+            border-radius: 999px;
+            background: var(--berry);
+            color: #fff;
+            font: 700 .8rem 'Figtree', sans-serif;
+            padding: .4rem .9rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .15s;
+        }
+
+        .add-btn:hover {
+            background: var(--berry-deep);
+        }
+
+        .stepper {
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            margin-left: .4rem;
+            background: var(--marigold);
+            border-radius: 999px;
+            padding: 2px;
+        }
+
+        .stepper button {
+            width: 28px;
+            height: 28px;
+            border: 0;
+            border-radius: 50%;
+            background: #fff;
+            color: var(--ink);
+            font-weight: 800;
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .stepper span {
+            min-width: 1.6rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: .9rem;
+        }
+
+        .add-btn:focus-visible,
+        .stepper button:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 2px;
+        }
+
+        #cart-fab {
+            position: fixed;
+            right: 1rem;
+            bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+            z-index: 55;
+            display: none;
+            align-items: center;
+            gap: .5rem;
+            border: 0;
+            border-radius: 999px;
+            background: var(--marigold);
+            color: var(--ink);
+            font: 800 1rem 'Figtree', sans-serif;
+            padding: .8rem 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(58, 22, 32, .3);
+        }
+
+        #cart-fab.show {
+            display: inline-flex;
+        }
+
+        #cart-fab .count {
+            background: var(--berry);
+            color: #fff;
+            border-radius: 999px;
+            min-width: 1.5rem;
+            padding: 0 .4rem;
+            text-align: center;
+            font-size: .85rem;
+            line-height: 1.5rem;
+        }
+
+        #cart-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 58;
+            background: rgba(58, 22, 32, .45);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s, visibility 0s linear .3s;
+        }
+
+        #cart-overlay.open {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity .3s;
+        }
+
+        #cart {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 59;
+            width: min(24rem, 100%);
+            background: var(--paper);
+            display: flex;
+            flex-direction: column;
+            translate: 100% 0;
+            visibility: hidden;
+            transition: translate .35s cubic-bezier(.2, .8, .3, 1), visibility 0s linear .35s;
+            padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        #cart.open {
+            translate: 0 0;
+            visibility: visible;
+            transition: translate .35s cubic-bezier(.2, .8, .3, 1);
+        }
+
+        #cart header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: var(--berry);
+            color: #fff;
+        }
+
+        #cart header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        #cart-close {
+            border: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+        }
+
+        #cart-items {
+            list-style: none;
+            margin: 0;
+            padding: .5rem 1.25rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        #cart-items li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            padding: .8rem 0;
+            border-bottom: 1px dotted #e6b7bf;
+        }
+
+        #cart-items .nm {
+            font-weight: 500;
+        }
+
+        #cart-items .cat-nm {
+            display: block;
+            font-size: .75rem;
+            opacity: .65;
+        }
+
+        #cart-empty {
+            padding: 2rem 1.25rem;
+            text-align: center;
+            opacity: .7;
+            margin: 0;
+        }
+
+        #cart footer {
+            padding: 1rem 1.25rem calc(1rem + env(safe-area-inset-bottom, 0px));
+            border-top: 1px solid #f0d6db;
+        }
+
+        #cart footer .btn {
+            width: 100%;
+            text-align: center;
+            border: 0;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        #cart-clear {
+            margin-top: .6rem;
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: var(--berry);
+            font-weight: 700;
+            cursor: pointer;
+            padding: .4rem;
+        }
+
+        #cart-help {
+            font-size: .8rem;
+            opacity: .75;
+            margin: 0 0 .75rem;
+            line-height: 1.4;
+        }
+
+        #cart-toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+            translate: -50% 20px;
+            z-index: 70;
+            background: var(--ink);
+            color: #fff;
+            padding: .8rem 1.2rem;
+            border-radius: 14px;
+            max-width: min(90vw, 26rem);
+            text-align: center;
+            font-size: .9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s, translate .3s;
+        }
+
+        #cart-toast.show {
+            opacity: 1;
+            translate: -50% 0;
         }
 
         /* ---------- Motion ---------- */
@@ -496,8 +741,8 @@
                 <div>
                     <h2 class="display text-4xl md:text-5xl" style="font-weight: 800; color: var(--berry);">The menu
                     </h2>
-                    <p class="mt-3 text-lg max-w-xl">Everything is ordered online through TikTok @lias.kaffe. Prices are
-                        in Malaysian ringgit (MYR).</p>
+                    <p class="mt-3 text-lg max-w-xl">Tap Add on anything you like, then send your order to us on TikTok
+                        @lias.kaffe. Prices are in Malaysian ringgit (MYR).</p>
                 </div>
                 <div class="plate hidden md:block shrink-0" style="width: 9rem; rotate: 6deg;">
                     <img src="images-of-food/pecan-pie.jpg" alt="Pecan pie" loading="lazy">
@@ -552,8 +797,8 @@
         <div class="wrap reveal">
             <h2 class="display text-4xl md:text-5xl" style="font-weight: 800; color: var(--berry);">Order on TikTok</h2>
             <p class="text-lg mt-4 max-w-xl leading-relaxed">
-                Lia's Kaffe is available through online order only. Open our TikTok at <strong>@lias.kaffe</strong>,
-                choose your treats and send your order there.
+                Lia's Kaffe is available through online order only. Add your treats from the menu, then message us on
+                TikTok at <strong>@lias.kaffe</strong> to send your order.
             </p>
             <div class="mt-8 flex flex-wrap gap-3">
                 <a href="https://www.tiktok.com/@lias.kaffe" target="_blank" rel="noopener" class="btn">Open
@@ -572,9 +817,34 @@
         </div>
     </footer>
 
+    <!-- Cart -->
+    <button id="cart-fab" type="button" aria-label="Open your order">
+        <span>Your order</span><span class="count" id="cart-count">0</span>
+    </button>
+    <div id="cart-overlay"></div>
+    <aside id="cart" role="dialog" aria-modal="true" aria-label="Your order">
+        <header>
+            <h2 class="display">Your order</h2>
+            <button id="cart-close" type="button" aria-label="Close order">&times;</button>
+        </header>
+        <p id="cart-empty">Your order is empty. Tap “Add” on any menu item.</p>
+        <ul id="cart-items"></ul>
+        <footer>
+            <p id="cart-help">Tapping the button copies your order, then opens our TikTok. Tap <strong>Message</strong>,
+                paste, and send.</p>
+            <button id="cart-send" class="btn" type="button">Message on TikTok</button>
+            <button id="cart-clear" type="button">Clear order</button>
+        </footer>
+    </aside>
+    <div id="cart-toast" role="status" aria-live="polite"></div>
+
     <script>
         const SHEET_ID = '1rlIsVLs0dg0gF1sr__LmOMktxOQ3VBSzykzYeodRECY';
         const TABS = ['KaffePies', 'Choux', 'Bread', 'Brownies', 'Signature Cakes', 'Soft Cookies'];
+        const TIKTOK_PROFILE = 'https://www.tiktok.com/@lias.kaffe';
+
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
         async function loadTab(tab) {
             const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(tab)}`;
@@ -592,13 +862,110 @@
             return { name: tab, items };
         }
 
+        /* ---------- Cart ---------- */
+        const cart = new Map();   // key -> { name, cat, qty }
+        const known = new Map();  // key -> { name, cat }  (every item on the menu)
+
+        function ctlHTML(key) {
+            const qty = cart.get(key)?.qty || 0;
+            const k = esc(key);
+            if (!qty) return `<button class="add-btn" type="button" data-act="inc" data-key="${k}">Add</button>`;
+            return `<span class="stepper"><button type="button" data-act="dec" data-key="${k}" aria-label="Remove one">&minus;</button><span>${qty}</span><button type="button" data-act="inc" data-key="${k}" aria-label="Add one more">+</button></span>`;
+        }
+
+        function refreshCart() {
+            document.querySelectorAll('#menu-list .ctl').forEach(el => { el.innerHTML = ctlHTML(el.dataset.key); });
+            const total = [...cart.values()].reduce((n, i) => n + i.qty, 0);
+            $('cart-count').textContent = total;
+            $('cart-fab').classList.toggle('show', total > 0);
+            $('cart-empty').style.display = total ? 'none' : 'block';
+            $('cart-send').disabled = !total;
+            $('cart-items').innerHTML = [...cart.entries()].map(([key, i]) => `
+                <li>
+                    <span class="nm">${esc(i.name)}<span class="cat-nm">${esc(i.cat)}</span></span>
+                    ${ctlHTML(key)}
+                </li>`).join('');
+            if (!total) closeCart();
+        }
+
+        function changeQty(key, d) {
+            const info = known.get(key);
+            if (!info) return;
+            const qty = (cart.get(key)?.qty || 0) + d;
+            if (qty <= 0) cart.delete(key); else cart.set(key, { ...info, qty });
+            refreshCart();
+        }
+
+        function openCart() { $('cart').classList.add('open'); $('cart-overlay').classList.add('open'); }
+        function closeCart() { $('cart').classList.remove('open'); $('cart-overlay').classList.remove('open'); }
+
+        let toastTimer;
+        function toast(msg) {
+            const t = $('cart-toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 5000);
+        }
+
+        function buildMessage() {
+            const lines = [...cart.values()].map(i => `* ${i.name} (${i.qty}x)`);
+            return 'Hello! I would like to inquire for a purchase of;\n\n' + lines.join('\n');
+        }
+
+        function copyText(text) {
+            // Synchronous fallback first, so it still works when the page is about to navigate away
+            let ok = false;
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+                document.body.appendChild(ta);
+                ta.select();
+                ta.setSelectionRange(0, text.length);
+                ok = document.execCommand('copy');
+                ta.remove();
+            } catch (e) { }
+            try { navigator.clipboard?.writeText(text); ok = true; } catch (e) { }
+            return ok;
+        }
+
+        function setupCart() {
+            document.addEventListener('click', e => {
+                const b = e.target.closest('[data-act]');
+                if (b) changeQty(b.dataset.key, b.dataset.act === 'inc' ? 1 : -1);
+            });
+            $('cart-fab').addEventListener('click', openCart);
+            $('cart-close').addEventListener('click', closeCart);
+            $('cart-overlay').addEventListener('click', closeCart);
+            $('cart-clear').addEventListener('click', () => { cart.clear(); refreshCart(); });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+
+            $('cart-send').addEventListener('click', () => {
+                if (!cart.size) return;
+                const copied = copyText(buildMessage());
+                toast(copied
+                    ? 'Order copied! Tap “Message” on our TikTok, paste, and send.'
+                    : 'Could not copy automatically. Please type your order in the DM.');
+                window.open(TIKTOK_PROFILE, '_blank', 'noopener');
+            });
+            refreshCart();
+        }
+
+        /* ---------- Menu ---------- */
         function renderMenu(MENU) {
+            known.clear();
             document.getElementById('menu-list').innerHTML = MENU.map(c => `
             <div class="cat reveal">
-                <div class="cat-head display"><span>${c.name}</span><span class="cur">MYR</span></div>
-                ${c.items.map(([n, p, note], i) => `
-                    <div class="row" style="--i:${i}"><span>${n}</span><span class="dots"></span><span class="price">${p.toFixed(2)}</span></div>
-                    ${note ? `<p class="note">${note}</p>` : ''}`).join('')}
+                <div class="cat-head display"><span>${esc(c.name)}</span><span class="cur">MYR</span></div>
+                ${c.items.map(([n, p, note], i) => {
+                const key = c.name + '|' + n;
+                known.set(key, { name: n, cat: c.name });
+                return `
+                    <div class="row" style="--i:${i}"><span>${esc(n)}</span><span class="dots"></span><span class="price">${p.toFixed(2)}</span><span class="ctl" data-key="${esc(key)}">${ctlHTML(key)}</span></div>
+                    ${note ? `<p class="note">${esc(note)}</p>` : ''}`;
+            }).join('')}
             </div>`).join('');
         }
 
@@ -649,15 +1016,14 @@
                 e.stopPropagation();
                 setOpen(!menu.classList.contains('open'));
             });
-            // Close after choosing a link, tapping elsewhere, pressing Escape, or resizing to desktop
             menu.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
             document.addEventListener('click', (e) => { if (!menu.contains(e.target)) setOpen(false); });
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { setOpen(false); btn.focus(); } });
             addEventListener('resize', () => { if (innerWidth >= 1024) setOpen(false); });
         }
 
-        // Set the menu up first so it works even if the price list fails to load
         setupMenu();
+        setupCart();
 
         async function init() {
             try {
